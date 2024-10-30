@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net48;net6.0;net8.0</TargetFrameworks>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Xpo" Version="23.2.8" />
+    <PackageReference Include="MySqlConnector" Version="2.3.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Models\gebucht.cs">
+      <DependentUpon>cevverkauf.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Models\kevkunden.cs">
+      <DependentUpon>einstellungen.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Models\kundenhistorie.Designer.cs">
+      <DependentUpon>kundenhistorie.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>
