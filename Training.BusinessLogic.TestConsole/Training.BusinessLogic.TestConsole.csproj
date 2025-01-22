@@ -12,6 +12,13 @@
     <ProjectReference Include="..\Training.BusinessLogic.Gebucht\Training.BusinessLogic.Gebucht.csproj" />
     <ProjectReference Include="..\Training.BusinessLogic.Spielstaetten\Training.BusinessLogic.Spielstaetten.csproj" />
     <ProjectReference Include="..\Training.BusinessLogic.UOW\Training.BusinessLogic.UOW.csproj" />
+    <ProjectReference Include="..\Training.BusinessLogic.Zeiterfassung\Training.BusinessLogic.Zeiterfassung.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Training.BusinessLogic.Engelmann">
+      <HintPath>..\Training.BusinessLogic.Engelmann\bin\Debug\net8.0\Training.BusinessLogic.Engelmann.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

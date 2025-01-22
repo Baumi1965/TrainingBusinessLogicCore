@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Training.BusinessLogic.Spielstaetten\Training.BusinessLogic.Spielstaetten.csproj" />
+      <ProjectReference Include="..\Training.BusinessLogic.UOW\Training.BusinessLogic.UOW.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="DevExpress.Xpo" Version="23.2.8" />
+    </ItemGroup>
+
+</Project>
