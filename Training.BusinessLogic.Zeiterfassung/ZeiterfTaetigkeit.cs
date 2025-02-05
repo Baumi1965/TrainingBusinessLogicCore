@@ -15,12 +15,12 @@ namespace Training.BusinessLogic.Zeiterfassung
 		{
 			try
 			{
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-				var result = await UOW.UOW.uow.Query<zeiterftaetigkeit>().ToListAsync();
+				var result = await UOW.Uow._uow.Query<zeiterftaetigkeit>().ToListAsync();
 				List<ZeiterfTaetigkeit> list = new List<ZeiterfTaetigkeit>();
 				foreach (var item in result)
 				{

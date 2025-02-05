@@ -31,9 +31,9 @@ public class ZeiterfJahresuebersicht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 var mitarbeiter = await ZeiterfMitarbeiter.GetById(mitarbeiterId);
@@ -102,9 +102,9 @@ public class ZeiterfJahresuebersicht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 DateTime von = new DateTime(date.Year, date.Month, 1);
@@ -115,7 +115,7 @@ public class ZeiterfJahresuebersicht
                 uebersicht.Monat = date.ToString("MMMM");
                 uebersicht.Jahr = date.Year.ToString();
 
-                var abschluss = await UOW.UOW.uow.Query<zeiterfmonatabschluss>()
+                var abschluss = await UOW.Uow._uow.Query<zeiterfmonatabschluss>()
                                     .Where(x => x.MitarbeiterId == mitarbeiterid && x.Datum.Value.Date >= von.Date && x.Datum.Value.Date <= bis.Date)
                                     .ToListAsync();
 

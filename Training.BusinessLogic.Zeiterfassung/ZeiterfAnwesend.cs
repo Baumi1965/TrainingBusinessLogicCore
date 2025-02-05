@@ -23,9 +23,9 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 var resultspielstaette = await Spielstaetten.Spielstaetten.GetByIdAsync(spielstaetteId);
@@ -34,7 +34,7 @@ namespace Training.BusinessLogic.Zeiterfassung
                 var resultmitarbeiter = await ZeiterfMitarbeiter.GetById(mitarbeiterId);
                 string name = resultmitarbeiter.Name;
 
-                zeiterfanwesend anwesend = new zeiterfanwesend(UOW.UOW.uow)
+                zeiterfanwesend anwesend = new zeiterfanwesend(UOW.Uow._uow)
                 {
                     Datum = datum,
                     Kommt = kommt,
@@ -44,7 +44,7 @@ namespace Training.BusinessLogic.Zeiterfassung
                     SpielstaetteID = spielstaetteId,
             };
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -56,19 +56,19 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<zeiterfanwesend>()
+                var result = await UOW.Uow._uow.Query<zeiterfanwesend>()
                     .Where(x => x.MitarbeiterId == mitarbeiterId && x.Datum.Date == datum.Date)
                     .FirstOrDefaultAsync();
 
                 if (result != null)
                 {
-                    await UOW.UOW.uow.DeleteAsync(result);
-                    await UOW.UOW.SaveAsync(); 
+                    await UOW.Uow._uow.DeleteAsync(result);
+                    await UOW.Uow.SaveAsync(); 
                 }
             }
             catch (Exception)
@@ -81,12 +81,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<zeiterfanwesend>()
+                var result = await UOW.Uow._uow.Query<zeiterfanwesend>()
                     .Where(x => x.Datum.Date == date.Date)
                     .ToListAsync();
 

@@ -202,11 +202,11 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if(UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if(UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-                var result = await UOW.UOW.uow
+                var result = await UOW.Uow._uow
                     .Query<zeiterfmodell>()
                     .ToListAsync();
 
@@ -267,11 +267,11 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-                var result = await UOW.UOW.uow
+                var result = await UOW.Uow._uow
                     .Query<zeiterfmodell>()
                     .Where(x => x.Hauptmodell == true)
                     .ToListAsync();
@@ -333,11 +333,11 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if(UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if(UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-                var modell = await UOW.UOW.uow
+                var modell = await UOW.Uow._uow
                     .Query<zeiterfmodell>()
                     .Where(x => x.ID == id)
                     .FirstOrDefaultAsync();
@@ -392,12 +392,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if(UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if(UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var modell = await UOW.UOW.uow
+                var modell = await UOW.Uow._uow
                     .Query<zeiterfmodell>()
                     .Where(x => x.Submodell == true && x.HauptmodellID == id)
                     .ToListAsync();
@@ -458,12 +458,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if(UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if(UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                zeiterfmodell zeiterfmodell = new zeiterfmodell(UOW.UOW.uow)
+                zeiterfmodell zeiterfmodell = new zeiterfmodell(UOW.Uow._uow)
                 {
                     Modell = item.Modell,
                     Wochenstunden = item.Wochenstunden,
@@ -497,7 +497,7 @@ namespace Training.BusinessLogic.Zeiterfassung
                     SoEnde = item.SoEnde,
                 };
 
-                await UOW.UOW.SaveAsync(); 
+                await UOW.Uow.SaveAsync(); 
             }
             catch(Exception)
             {
@@ -509,12 +509,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if(UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if(UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow
+                var result = await UOW.Uow._uow
                     .Query<zeiterfmodell>()
                     .Where(x => x.ID == id)
                     .FirstOrDefaultAsync();
@@ -556,7 +556,7 @@ namespace Training.BusinessLogic.Zeiterfassung
                 result.SoBeginn = item.SoBeginn;
                 result.SoEnde = item.SoEnde;
 
-                await UOW.UOW.SaveAsync(); 
+                await UOW.Uow.SaveAsync(); 
             }
             catch(Exception)
             {
@@ -568,12 +568,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if(UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if(UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow
+                var result = await UOW.Uow._uow
                     .Query<zeiterfmodell>()
                     .Where(x => x.ID == id)
                     .FirstOrDefaultAsync();
@@ -584,19 +584,19 @@ namespace Training.BusinessLogic.Zeiterfassung
                 }
                 ;
 
-                await UOW.UOW.uow.DeleteAsync(result);
+                await UOW.Uow._uow.DeleteAsync(result);
 
-                var resultpause = await UOW.UOW.uow
+                var resultpause = await UOW.Uow._uow
                     .Query<zeiterfmodellpause>()
                     .Where(x => x.ModellID == id)
                     .FirstOrDefaultAsync();
 
                 if(resultpause != null)
                 {
-                    await UOW.UOW.uow.DeleteAsync(resultpause);
+                    await UOW.Uow._uow.DeleteAsync(resultpause);
                 }
 
-                await UOW.UOW.SaveAsync(); 
+                await UOW.Uow.SaveAsync(); 
             }
             catch(Exception)
             {

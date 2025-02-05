@@ -18,12 +18,12 @@ namespace Training.BusinessLogic.Zeiterfassung
 		{
 			try
 			{
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-				var result = await UOW.UOW.uow.Query<zeiterfmodellpause>().ToListAsync();
+				var result = await UOW.Uow._uow.Query<zeiterfmodellpause>().ToListAsync();
 				List<ZeiterfModellPause> list = new List<ZeiterfModellPause>();
 				foreach (var item in result)
 				{
@@ -47,12 +47,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = UOW.UOW.uow.Query<zeiterfmodellpause>().Where(x => x.ModellID == modelId).ToList();
+                var result = UOW.Uow._uow.Query<zeiterfmodellpause>().Where(x => x.ModellID == modelId).ToList();
                 List<ZeiterfModellPause> list = new List<ZeiterfModellPause>();
                 foreach (var item in result)
                 {
@@ -77,12 +77,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<zeiterfmodellpause>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<zeiterfmodellpause>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (result == null)
                     return null;
 
@@ -103,12 +103,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<zeiterfmodellpause>().Where(x => x.ModellID == modelId).CountAsync();
+                var result = await UOW.Uow._uow.Query<zeiterfmodellpause>().Where(x => x.ModellID == modelId).CountAsync();
                 return result;
             }
             catch (Exception)
@@ -121,17 +121,17 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                zeiterfmodellpause mp = new zeiterfmodellpause(UOW.UOW.uow)
+                zeiterfmodellpause mp = new zeiterfmodellpause(UOW.Uow._uow)
                 {
                     ModellID = modelId,
                     PauseStart = pauseStart,
                 };
-                await UOW.UOW.SaveAsync(); 
+                await UOW.Uow.SaveAsync(); 
             }
             catch (Exception)
             {
@@ -143,15 +143,15 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<zeiterfmodellpause>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<zeiterfmodellpause>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (result == null)
                 {
-                    zeiterfmodellpause mp = new zeiterfmodellpause(UOW.UOW.uow)
+                    zeiterfmodellpause mp = new zeiterfmodellpause(UOW.Uow._uow)
                     {
                         PauseStart = pauseStart,
                     };
@@ -160,7 +160,7 @@ namespace Training.BusinessLogic.Zeiterfassung
                 {
                     result.PauseStart = pauseStart;
                 }
-                await UOW.UOW.SaveAsync(); 
+                await UOW.Uow.SaveAsync(); 
             }
             catch (Exception)
             {
@@ -172,19 +172,19 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<zeiterfmodellpause>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<zeiterfmodellpause>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (result == null)
                 {
                     return;
                 }
 
-                await UOW.UOW.uow.DeleteAsync(result);
-                await UOW.UOW.SaveAsync(); 
+                await UOW.Uow._uow.DeleteAsync(result);
+                await UOW.Uow.SaveAsync(); 
             }
             catch (Exception)
             {

@@ -41,11 +41,11 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-                var ma = await UOW.UOW.uow.Query<zeiterfmitarbeiter>()
+                var ma = await UOW.Uow._uow.Query<zeiterfmitarbeiter>()
                     .ToListAsync();
 
                 if (ma == null)
@@ -99,11 +99,11 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-                var ma = await UOW.UOW.uow.Query<zeiterfmitarbeiter>()
+                var ma = await UOW.Uow._uow.Query<zeiterfmitarbeiter>()
                     .Where(x => x.Gesperrt == false && x.MitarbeiterId != "1000" && x.SpielstaetteID == location)
                     .OrderBy(x => x.Name)
                     .ToListAsync();
@@ -159,11 +159,11 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-                var ma = await UOW.UOW.uow.Query<zeiterfmitarbeiter>()
+                var ma = await UOW.Uow._uow.Query<zeiterfmitarbeiter>()
                     .Where(x => x.Gesperrt == false && x.Auszahlungsliste == true && x.MitarbeiterId != "1000" && x.SpielstaetteID == location)
                     .OrderBy(x => x.Name)
                     .ToListAsync();
@@ -220,11 +220,11 @@ namespace Training.BusinessLogic.Zeiterfassung
 		{
 			try
 			{
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-				var ma = await UOW.UOW.uow.Query<zeiterfmitarbeiter>()
+				var ma = await UOW.Uow._uow.Query<zeiterfmitarbeiter>()
 					.Where(x => x.Gesperrt == false)
 					.ToListAsync();
 
@@ -279,12 +279,12 @@ namespace Training.BusinessLogic.Zeiterfassung
 		{
 			try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-				var ma = await UOW.UOW.uow.Query<zeiterfmitarbeiter>()
+				var ma = await UOW.Uow._uow.Query<zeiterfmitarbeiter>()
 					.Where(x => x.MitarbeiterId == mitarbeiterId)
 					.FirstOrDefaultAsync();
 
@@ -334,18 +334,18 @@ namespace Training.BusinessLogic.Zeiterfassung
 		{
 			try
 			{
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-				var ma = await UOW.UOW.uow.Query<zeiterfmitarbeiter>()
+				var ma = await UOW.Uow._uow.Query<zeiterfmitarbeiter>()
 					.Where(x => x.MitarbeiterId == mitarbeiterId)
 					.FirstOrDefaultAsync();
 
 				if (ma != null)
 				{
 					ma.UrlaubAktuell = urlaub;
-					await UOW.UOW.SaveAsync(); 
+					await UOW.Uow.SaveAsync(); 
 				}
 			}
 			catch (Exception)
@@ -358,18 +358,18 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-                var ma = await UOW.UOW.uow.Query<zeiterfmitarbeiter>()
+                var ma = await UOW.Uow._uow.Query<zeiterfmitarbeiter>()
                     .Where(x => x.ID == id)
                     .FirstOrDefaultAsync();
 
                 if (ma != null)
                 {
-                    await UOW.UOW.uow.DeleteAsync(ma);
-                    await UOW.UOW.SaveAsync(); 
+                    await UOW.Uow._uow.DeleteAsync(ma);
+                    await UOW.Uow.SaveAsync(); 
                 }
             }
             catch (Exception)
@@ -382,12 +382,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                zeiterfmitarbeiter mitarbeiter = new zeiterfmitarbeiter(UOW.UOW.uow)
+                zeiterfmitarbeiter mitarbeiter = new zeiterfmitarbeiter(UOW.Uow._uow)
                 {
 					MitarbeiterId = ma.MitarbeiterId,
 					Name = ma.Name,
@@ -415,7 +415,7 @@ namespace Training.BusinessLogic.Zeiterfassung
 					NH3Plus = ma.NH3Plus,
                 };
 
-                await UOW.UOW.SaveAsync(); 
+                await UOW.Uow.SaveAsync(); 
             }
             catch (Exception)
             {
@@ -427,13 +427,13 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
 
-                var result = await UOW.UOW.uow
+                var result = await UOW.Uow._uow
                     .Query<zeiterfmitarbeiter>()
                     .Where(x => x.ID == id)
                     .FirstOrDefaultAsync();
@@ -468,7 +468,7 @@ namespace Training.BusinessLogic.Zeiterfassung
                 result.NH3 = ma.NH3;
                 result.NH3Plus = ma.NH3Plus;
 
-                await UOW.UOW.SaveAsync(); 
+                await UOW.Uow.SaveAsync(); 
             }
             catch (Exception)
             {

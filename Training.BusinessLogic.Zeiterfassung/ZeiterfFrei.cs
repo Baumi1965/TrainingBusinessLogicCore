@@ -19,12 +19,12 @@ namespace Training.BusinessLogic.Zeiterfassung
 		{
 			try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-				var frei = await UOW.UOW.uow.Query<zeiterffrei>()
+				var frei = await UOW.Uow._uow.Query<zeiterffrei>()
 					.Where(x => x.MitarbeiterId == mitarbeiterId && x.Datum.Value.Date >= start.Date && x.Datum.Value.Date <= end.Date)
 					.OrderBy(x => x.Datum)
 					.ToListAsync();
@@ -53,18 +53,18 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var frei = await UOW.UOW.uow.Query<zeiterffrei>()
+                var frei = await UOW.Uow._uow.Query<zeiterffrei>()
                     .Where(x => x.MitarbeiterId == mitarbeiterId && x.Datum.Value.Date == date.Date)
                     .FirstOrDefaultAsync();
 
                 if (frei == null)
                 {
-                    zeiterffrei zeitfrei = new zeiterffrei(UOW.UOW.uow)
+                    zeiterffrei zeitfrei = new zeiterffrei(UOW.Uow._uow)
                     {
                         MitarbeiterId = mitarbeiterId,
                         Datum = date,
@@ -76,7 +76,7 @@ namespace Training.BusinessLogic.Zeiterfassung
                     frei.Bemerkung = bemerkung;
                 }
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
 
             }
             catch (Exception)

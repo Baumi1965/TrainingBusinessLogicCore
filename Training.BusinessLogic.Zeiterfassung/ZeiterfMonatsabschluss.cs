@@ -46,12 +46,12 @@ namespace Training.BusinessLogic.Zeiterfassung
 		{
 			try
 			{
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-				var ma = await UOW.UOW.uow.Query<zeiterfmonatabschluss>()
+				var ma = await UOW.Uow._uow.Query<zeiterfmonatabschluss>()
 					.Where(x => x.MitarbeiterId == mitarbeiterId && x.Datum.Value.Date >= start.Date && x.Datum.Value.Date <= end.Date)
 					.OrderBy(x => x.Datum)
 					.ToListAsync();
@@ -107,14 +107,14 @@ namespace Training.BusinessLogic.Zeiterfassung
 		{
 			try
 			{
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
 				foreach (var item in abschluesse)
 				{
-					zeiterfmonatabschluss ma = new zeiterfmonatabschluss(UOW.UOW.uow);
+					zeiterfmonatabschluss ma = new zeiterfmonatabschluss(UOW.Uow._uow);
 					ma.Datum = item.Datum;
 					ma.MitarbeiterId = item.MitarbeiterId;
 					ma.Anwesenheit = item.Anwesenheit;
@@ -146,7 +146,7 @@ namespace Training.BusinessLogic.Zeiterfassung
 					ma.Urlaub = item.Urlaub;
 					ma.Wochensaldo = item.Wochensaldo;
 				}
-				await UOW.UOW.SaveAsync(); 			}
+				await UOW.Uow.SaveAsync(); 			}
 			catch (Exception)
 			{
 				throw;
@@ -157,20 +157,20 @@ namespace Training.BusinessLogic.Zeiterfassung
 		{
 			try
 			{
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 					
-				var result = await UOW.UOW.uow.Query<zeiterfmonatabschluss>()
+				var result = await UOW.Uow._uow.Query<zeiterfmonatabschluss>()
 					.Where(x => x.MitarbeiterId == mitarbeiter && x.Datum.Value.Date >= von.Date && x.Datum.Value.Date <= bis.Date)
 					.ToListAsync();
 
 				foreach (var item in result)
 				{
-					await UOW.UOW.uow.DeleteAsync(item);
+					await UOW.Uow._uow.DeleteAsync(item);
 				}
-				await UOW.UOW.SaveAsync(); 
+				await UOW.Uow.SaveAsync(); 
 			}
 			catch (Exception)
 			{

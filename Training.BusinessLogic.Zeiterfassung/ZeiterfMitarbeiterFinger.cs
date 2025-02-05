@@ -21,20 +21,20 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
 
-                var result = await UOW.UOW.uow
+                var result = await UOW.Uow._uow
                     .Query<zeiterfmitarbeiterfinger>()
                     .Where(x => x.MitarbeiterId == mitarbeiterId && x.FingerIndex == fingerIndex)
                     .FirstOrDefaultAsync();
 
                 if (result == null)
                 {
-                    var ma = new zeiterfmitarbeiterfinger(UOW.UOW.uow)
+                    var ma = new zeiterfmitarbeiterfinger(UOW.Uow._uow)
                     {
                         Finger = finger,
                         SecretKey = secretKey,
@@ -49,7 +49,7 @@ namespace Training.BusinessLogic.Zeiterfassung
                     result.SecretKey = secretKey;
                 }
 
-                await UOW.UOW.SaveAsync(); 
+                await UOW.Uow.SaveAsync(); 
             }
             catch (Exception)
             {
@@ -61,12 +61,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = UOW.UOW.uow
+                var result = UOW.Uow._uow
                     .Query<zeiterfmitarbeiterfinger>()
                     .ToList();
 

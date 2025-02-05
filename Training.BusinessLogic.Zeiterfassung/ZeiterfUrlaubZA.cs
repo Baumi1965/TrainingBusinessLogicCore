@@ -24,12 +24,12 @@ namespace Training.BusinessLogic.Zeiterfassung
 		{
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<zeiterfurlaubza>()
+                var result = await UOW.Uow._uow.Query<zeiterfurlaubza>()
                     .Where(x => x.MitarbeiterId == mitarbeiterId && x.Monat == datum.Month && x.Jahr == datum.Year).FirstOrDefaultAsync();
 
 				if (result == null)
@@ -61,15 +61,15 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 DateTime von = new DateTime(date.Year,9,1);
                 DateTime bis = new DateTime(date.Year + 1, 8, 31);
 
-                var result = await UOW.UOW.uow.Query<zeiterfurlaubza>()
+                var result = await UOW.Uow._uow.Query<zeiterfurlaubza>()
                     .Where(x => x.MitarbeiterId == mitarbeiterId && 
                             ((x.Jahr == von.Year && x.Monat >= von.Month) || (x.Jahr == bis.Year && x.Monat <= bis.Month)))
                     .ToListAsync();
@@ -110,12 +110,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<zeiterfurlaubza>()
+                var result = await UOW.Uow._uow.Query<zeiterfurlaubza>()
                     .Where(x => x.MitarbeiterId == mitarbeiterId)
                     .OrderByDescending(x => x.Jahr)
                     .ThenByDescending(x => x.Monat)
@@ -150,12 +150,12 @@ namespace Training.BusinessLogic.Zeiterfassung
 		{
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<zeiterfurlaubza>()
+                var result = await UOW.Uow._uow.Query<zeiterfurlaubza>()
                     .Where(x => x.MitarbeiterId == mitarbeiterId 
 					&& (x.Abschluss == null || x.Abschluss == false)
 					&& (x.Jahr <= date.Year || (x.Jahr == date.Year && x.Monat <= date.Month)))
@@ -180,12 +180,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<zeiterfurlaubza>()
+                var result = await UOW.Uow._uow.Query<zeiterfurlaubza>()
                     .Where(x => x.MitarbeiterId == mitarbeiterId
                     && x.Abschluss == true
                     && x.Jahr == year && x.Monat == month)
@@ -210,17 +210,17 @@ namespace Training.BusinessLogic.Zeiterfassung
 		{
 			try
 			{
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-				var result = await UOW.UOW.uow.Query<zeiterfurlaubza>()
+				var result = await UOW.Uow._uow.Query<zeiterfurlaubza>()
 					.Where(x => x.MitarbeiterId == mitarbeiterId && x.Monat == month && x.Jahr == year).FirstOrDefaultAsync();
 
 				if (result == null)
 				{
-					zeiterfurlaubza urlaubza = new zeiterfurlaubza(UOW.UOW.uow)
+					zeiterfurlaubza urlaubza = new zeiterfurlaubza(UOW.Uow._uow)
 					{
 						Abschluss = abschluss,
 						Ausbezahlt = ausbezahlt,
@@ -240,7 +240,7 @@ namespace Training.BusinessLogic.Zeiterfassung
 					result.Saldo = saldo;
 					result.Urlaub = urlaub;
 				}
-				await UOW.UOW.SaveAsync(); 
+				await UOW.Uow.SaveAsync(); 
 			}
 			catch (Exception)
 			{

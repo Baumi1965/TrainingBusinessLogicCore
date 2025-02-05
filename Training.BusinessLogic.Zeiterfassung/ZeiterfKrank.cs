@@ -18,11 +18,11 @@ namespace Training.BusinessLogic.Zeiterfassung
 		{
 			try
 			{
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-				var krank = await UOW.UOW.uow.Query<zeiterfkrank>()
+				var krank = await UOW.Uow._uow.Query<zeiterfkrank>()
 					.Where(x => x.MitarbeiterId == mitarbeiterId && x.Datum.Value.Date >= start.Date && x.Datum.Value.Date <= end.Date)
 					.OrderBy(x => x.Datum)
 					.ToListAsync();
@@ -50,11 +50,11 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-                var krank = await UOW.UOW.uow.Query<zeiterfkrank>()
+                var krank = await UOW.Uow._uow.Query<zeiterfkrank>()
                     .Where(x => x.MitarbeiterId == mitarbeiterId && x.Datum.Value.Date >= start.Date && x.Datum.Value.Date <= end.Date)
                     .CountAsync();
 
@@ -70,11 +70,11 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-                var krank = await UOW.UOW.uow
+                var krank = await UOW.Uow._uow
                     .Query<zeiterfkrank>()
                     .Where(
                         x => x.MitarbeiterId == mitarbeiterId &&
@@ -86,8 +86,8 @@ namespace Training.BusinessLogic.Zeiterfassung
                     return;
                 }
 
-                await UOW.UOW.uow.DeleteAsync(krank);
-                await UOW.UOW.SaveAsync(); 
+                await UOW.Uow._uow.DeleteAsync(krank);
+                await UOW.Uow.SaveAsync(); 
             }
             catch (Exception)
             {
@@ -99,21 +99,21 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var cnt = await UOW.UOW.uow.Query<zeiterfkrank>()
+                var cnt = await UOW.Uow._uow.Query<zeiterfkrank>()
                     .Where(x => x.MitarbeiterId == mitarbeiterId && x.Datum.Value.Date == date).CountAsync();
 
                 if (cnt == 0)
                 {
-                    zeiterfkrank krank = new zeiterfkrank(UOW.UOW.uow);
+                    zeiterfkrank krank = new zeiterfkrank(UOW.Uow._uow);
                     krank.MitarbeiterId = mitarbeiterId;
                     krank.Datum = date;
                 }
-                await UOW.UOW.SaveAsync(); 
+                await UOW.Uow.SaveAsync(); 
             }
             catch (Exception)
             {

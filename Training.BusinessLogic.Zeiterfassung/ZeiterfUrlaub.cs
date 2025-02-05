@@ -17,12 +17,12 @@ namespace Training.BusinessLogic.Zeiterfassung
 		{
 			try
 			{
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-				var urlaub = await UOW.UOW.uow.Query<zeiterfurlaub>()
+				var urlaub = await UOW.Uow._uow.Query<zeiterfurlaub>()
 					.Where(x => x.MitarbeiterId == mitarbeiterId && x.Datum.Value.Date >= start.Date && x.Datum.Value.Date <= end.Date)
 					.OrderBy(x => x.Datum)
 					.ToListAsync();
@@ -50,12 +50,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var urlaub = await UOW.UOW.uow
+                var urlaub = await UOW.Uow._uow
                     .Query<zeiterfurlaub>()
                     .Where(
                         x => x.MitarbeiterId == mitarbeiterId &&
@@ -76,11 +76,11 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-                var urlaub = await UOW.UOW.uow
+                var urlaub = await UOW.Uow._uow
                     .Query<zeiterfurlaub>()
                     .Where(
                         x => x.MitarbeiterId == mitarbeiterId &&
@@ -92,8 +92,8 @@ namespace Training.BusinessLogic.Zeiterfassung
                     return;
                 }
 
-                await UOW.UOW.uow.DeleteAsync(urlaub);
-                await UOW.UOW.SaveAsync(); 
+                await UOW.Uow._uow.DeleteAsync(urlaub);
+                await UOW.Uow.SaveAsync(); 
             }
             catch (Exception)
             {
@@ -105,21 +105,21 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var cnt = await UOW.UOW.uow.Query<zeiterfurlaub>()
+                var cnt = await UOW.Uow._uow.Query<zeiterfurlaub>()
                     .Where(x => x.MitarbeiterId == mitarbeiterId && x.Datum.Value.Date == date).CountAsync();
 
                 if (cnt == 0)
                 {
-                    zeiterfurlaub urlaub = new zeiterfurlaub(UOW.UOW.uow);
+                    zeiterfurlaub urlaub = new zeiterfurlaub(UOW.Uow._uow);
                     urlaub.MitarbeiterId = mitarbeiterId;
                     urlaub.Datum = date;
                 }
-                await UOW.UOW.SaveAsync(); 
+                await UOW.Uow.SaveAsync(); 
             }
             catch (Exception)
             {

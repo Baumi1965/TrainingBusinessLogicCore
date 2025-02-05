@@ -30,12 +30,12 @@ namespace Training.BusinessLogic.Zeiterfassung
 		{
 			try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-				var nh3 = await UOW.UOW.uow.Query<zeiterfnh3>()
+				var nh3 = await UOW.Uow._uow.Query<zeiterfnh3>()
 					.Where(x => x.MitarbeiterId == mitarbeiterId && x.Datum.Value.Date >= start.Date && x.Datum.Value.Date <= end.Date)
 					.OrderBy(x => x.Datum)
 					.ToListAsync();
@@ -74,12 +74,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var nh3 = UOW.UOW.uow.Query<zeiterfnh3>()
+                var nh3 = UOW.Uow._uow.Query<zeiterfnh3>()
                     .Where(x => x.MitarbeiterId == mitarbeiterId && x.Datum.Value.Date == datum.Date)
                     .OrderBy(x => x.ID)
                     .ToList();
@@ -109,12 +109,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var nh3 = UOW.UOW.uow
+                var nh3 = UOW.Uow._uow
                     .Query<zeiterfnh3>()
                     .Where(
                         x => x.MitarbeiterId == mitarbeiterId &&
@@ -142,12 +142,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var nh3 = await UOW.UOW.uow
+                var nh3 = await UOW.Uow._uow
                     .Query<zeiterfnh3>()
                     .Where(
                         x => x.MitarbeiterId == mitarbeiterId &&
@@ -176,12 +176,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var nh3 = await UOW.UOW.uow
+                var nh3 = await UOW.Uow._uow
                     .Query<zeiterfnh3>()
                     .Where(
                         x => x.ID == id)
@@ -200,7 +200,7 @@ namespace Training.BusinessLogic.Zeiterfassung
                 nh3.Bemerkung = bemerkung;
                 nh3.NH3 = true;
 
-                await UOW.UOW.SaveAsync(); 
+                await UOW.Uow.SaveAsync(); 
 
             }
             catch (Exception)
@@ -213,12 +213,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var nh3 = await UOW.UOW.uow
+                var nh3 = await UOW.Uow._uow
                     .Query<zeiterfnh3>()
                     .Where(
                         x => x.ID == id)
@@ -229,8 +229,8 @@ namespace Training.BusinessLogic.Zeiterfassung
                     return;
                 }
 
-                await UOW.UOW.uow.DeleteAsync(nh3);
-                await UOW.UOW.SaveAsync(); 
+                await UOW.Uow._uow.DeleteAsync(nh3);
+                await UOW.Uow.SaveAsync(); 
             }
             catch (Exception)
             {

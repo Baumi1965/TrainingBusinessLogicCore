@@ -42,11 +42,11 @@ namespace Training.BusinessLogic.Zeiterfassung
 		{
 			try
 			{
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-				var buchung = await UOW.UOW.uow.Query<zeiterfbuchung>()
+				var buchung = await UOW.Uow._uow.Query<zeiterfbuchung>()
 					.Where(x => x.MitarbeiterId == mitarbeiterId && x.Datum.Value.Date >= start.Date && x.Datum.Value.Date <= end.Date)
 					.OrderBy(x => x.Datum).ThenBy(x => x.ID)
 					.ToListAsync();
@@ -97,11 +97,11 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-                var buchung = await UOW.UOW.uow.Query<zeiterfbuchung>()
+                var buchung = await UOW.Uow._uow.Query<zeiterfbuchung>()
                     .Where(x => x.MitarbeiterId == mitarbeiterId && x.Datum.Value.Date >= start.Date && x.Datum.Value.Date <= end.Date)
                     .CountAsync();
                  
@@ -125,12 +125,12 @@ namespace Training.BusinessLogic.Zeiterfassung
 		{
 			try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-				var cnt = await UOW.UOW.uow.Query<zeiterfbuchung>()
+				var cnt = await UOW.Uow._uow.Query<zeiterfbuchung>()
 					.Where(x => x.MitarbeiterId == mitarbeiterId 
 						&& x.Datum.Value.Date >= start.Date 
 						&& x.Datum.Value.Date <= end.Date
@@ -156,20 +156,20 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow
+                var result = await UOW.Uow._uow
                     .Query<zeiterfbuchung>()
                     .Where(x => x.ID == id)
                     .FirstOrDefaultAsync();
 
                 if (result != null)
                 {
-                    await UOW.UOW.uow.DeleteAsync(result);
-                    await UOW.UOW.SaveAsync(); 
+                    await UOW.Uow._uow.DeleteAsync(result);
+                    await UOW.Uow.SaveAsync(); 
                 }
             }
             catch (Exception)
@@ -184,12 +184,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                zeiterfbuchung buchung = new zeiterfbuchung(UOW.UOW.uow)
+                zeiterfbuchung buchung = new zeiterfbuchung(UOW.Uow._uow)
                 {
                     MitarbeiterId = mitarbeiterId,
                     Datum = datum,
@@ -208,7 +208,7 @@ namespace Training.BusinessLogic.Zeiterfassung
                     Taetigkeitsbereich = taetigkeitsbereich,
                 };
 
-                await UOW.UOW.SaveAsync(); 
+                await UOW.Uow.SaveAsync(); 
             }
             catch (Exception)
             {
@@ -221,12 +221,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow
+                var result = await UOW.Uow._uow
                     .Query<zeiterfbuchung>()
                     .Where(x => x.ID == id)
                     .FirstOrDefaultAsync();
@@ -246,7 +246,7 @@ namespace Training.BusinessLogic.Zeiterfassung
                     result.Bemerkung = bemerkung;
                     result.Taetigkeitsbereich = taetigkeitsbereich;
 
-                    await UOW.UOW.SaveAsync(); 
+                    await UOW.Uow.SaveAsync(); 
                 }
             }
             catch (Exception)
@@ -260,12 +260,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow
+                var result = await UOW.Uow._uow
                     .Query<zeiterfbuchung>()
                     .Where(x => x.ID == id)
                     .FirstOrDefaultAsync();
@@ -283,7 +283,7 @@ namespace Training.BusinessLogic.Zeiterfassung
                     result.Bemerkung = bemerkung;
                     result.Taetigkeitsbereich = taetigkeitsbereich;
 
-                    await UOW.UOW.SaveAsync(); 
+                    await UOW.Uow.SaveAsync(); 
                 }
             }
             catch (Exception)
@@ -297,12 +297,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow
+                var result = await UOW.Uow._uow
                     .Query<zeiterfbuchung>()
                     .Where(x => x.ID == id)
                     .FirstOrDefaultAsync();
@@ -320,7 +320,7 @@ namespace Training.BusinessLogic.Zeiterfassung
                     result.Bemerkung = bemerkung;
                     result.Taetigkeitsbereich = taetigkeitsbereich;
 
-                    await UOW.UOW.SaveAsync(); 
+                    await UOW.Uow.SaveAsync(); 
                 }
             }
             catch (Exception)
@@ -333,12 +333,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow
+                var result = await UOW.Uow._uow
                     .Query<zeiterfbuchung>()
                     .Where(x => x.MitarbeiterId == mitarbeiterId && x.Datum.Value.Date == datum)
                     .FirstOrDefaultAsync();
@@ -348,7 +348,7 @@ namespace Training.BusinessLogic.Zeiterfassung
                     result.NH3 = true;
                     result.NH3Zeit = zeitNH3;
 
-                    await UOW.UOW.SaveAsync(); 
+                    await UOW.Uow.SaveAsync(); 
                 }
             }
             catch (Exception)
@@ -361,12 +361,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var buchung = await UOW.UOW.uow.Query<zeiterfbuchung>()
+                var buchung = await UOW.Uow._uow.Query<zeiterfbuchung>()
                     .Where(x => x.MitarbeiterId == mitarbeiterId && x.Datum.Value.Date == datum.Date)
                     .OrderBy(x => x.ID)
                     .ToListAsync();
@@ -422,12 +422,12 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var buchung = UOW.UOW.uow.Query<zeiterfbuchung>()
+                var buchung = UOW.Uow._uow.Query<zeiterfbuchung>()
                     .Where(x => x.MitarbeiterId == mitarbeiterId && x.Datum.Value.Date == datum.Date)
                     .OrderBy(x => x.Datum).ThenBy(x => x.ID)
                     .ToList();

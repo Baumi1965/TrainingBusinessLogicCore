@@ -31,15 +31,15 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 DateTime von = new DateTime(year, 1, 1);
                 DateTime bis = new DateTime(year, 12, 31);
 
-                var urlaub = await UOW.UOW.uow.Query<zeiterfurlaub>()
+                var urlaub = await UOW.Uow._uow.Query<zeiterfurlaub>()
                     .Where(x => x.MitarbeiterId == mitarbeiterId && x.Datum.Value.Date >= von.Date && x.Datum.Value.Date <= bis.Date)
                     .OrderBy(x => x.Datum)
                     .ToListAsync();
@@ -124,15 +124,15 @@ namespace Training.BusinessLogic.Zeiterfassung
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 DateTime von = new DateTime(year, 1, 1);
                 DateTime bis = new DateTime(year, 12, 31);
 
-                var krank = await UOW.UOW.uow
+                var krank = await UOW.Uow._uow
                     .Query<zeiterfkrank>()
                     .Where(
                         x => x.MitarbeiterId == mitarbeiterId &&
