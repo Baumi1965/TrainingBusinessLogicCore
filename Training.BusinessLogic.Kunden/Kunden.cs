@@ -73,13 +73,13 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 List<Kunden> LstKunde = new List<Kunden>();
-                var kunden = await UOW.UOW.uow.Query<kunden>().ToListAsync();
+                var kunden = await UOW.Uow._uow.Query<kunden>().ToListAsync();
                 foreach (var item in kunden)
                 {
                     Kunden k = new Kunden();
@@ -157,13 +157,13 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 List<Kunden> LstKunde = new List<Kunden>();
-                var kunden = await UOW.UOW.uow.Query<kunden>().Where(x => x.KaestchenEisring == true || x.KaestchenStadthalle == true).ToListAsync();
+                var kunden = await UOW.Uow._uow.Query<kunden>().Where(x => x.KaestchenEisring == true || x.KaestchenStadthalle == true).ToListAsync();
                 foreach (var item in kunden)
                 {
                     Kunden k = new Kunden();
@@ -241,12 +241,12 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "GUTHABEN_UPDATE", kdnr);
+                var result = await UOW.Uow._uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "GUTHABEN_UPDATE", kdnr);
                 var Guthaben = Convert.ToDecimal(result.ResultSet.FirstOrDefault().Rows.FirstOrDefault().Values.FirstOrDefault());
             }
             catch (Exception)
@@ -259,14 +259,14 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 foreach (var item in kunden)
                 {
-                    var result = await UOW.UOW.uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "GUTHABEN_UPDATE", item.KdNr);
+                    var result = await UOW.Uow._uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "GUTHABEN_UPDATE", item.KdNr);
                     var Guthaben = Convert.ToDecimal(result.ResultSet.FirstOrDefault().Rows.FirstOrDefault().Values.FirstOrDefault());
                 }
             }
@@ -280,13 +280,13 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 List<Kunden> LstKunde = new List<Kunden>();
-                var kunden = await UOW.UOW.uow.Query<kunden>().
+                var kunden = await UOW.Uow._uow.Query<kunden>().
                     Where(x => (x.Verband == info1
                         || x.Verband == info2
                         || x.Verband == info3
@@ -385,12 +385,12 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var cnt = await UOW.UOW.uow.Query<kunden>().CountAsync();
+                var cnt = await UOW.Uow._uow.Query<kunden>().CountAsync();
                 return cnt;
             }
             catch (Exception)
@@ -403,12 +403,12 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var cnt = await UOW.UOW.uow.Query<kunden>().Where(x => x.KaestchenEisring == true || x.KaestchenStadthalle == true).CountAsync();
+                var cnt = await UOW.Uow._uow.Query<kunden>().Where(x => x.KaestchenEisring == true || x.KaestchenStadthalle == true).CountAsync();
                 return cnt;
             }
             catch (Exception)
@@ -421,12 +421,12 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var max = await UOW.UOW.uow.Query<kunden>().MaxAsync(x => x.KdNr);
+                var max = await UOW.Uow._uow.Query<kunden>().MaxAsync(x => x.KdNr);
                 if (max == null)
                     return 0;
                 else
@@ -442,12 +442,12 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var item = await UOW.UOW.uow.Query<kunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var item = await UOW.Uow._uow.Query<kunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
 
                 Kunden k = new Kunden();
                 k.Adresse = item.Adresse;
@@ -522,11 +522,11 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-                var item = await UOW.UOW.uow.Query<kunden>().Where(x => x.KdNr == kdnr).FirstOrDefaultAsync();
+                var item = await UOW.Uow._uow.Query<kunden>().Where(x => x.KdNr == kdnr).FirstOrDefaultAsync();
                 if (item == null)
                     return null;
 
@@ -603,11 +603,11 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-                var item = await UOW.UOW.uow.Query<kunden>()
+                var item = await UOW.Uow._uow.Query<kunden>()
                     .Where(x => x.KdNr == kdnr || x.KdNr == zg || x.KdNr == zr || x.KdNr == zz || x.KdNr == ag)
                     .FirstOrDefaultAsync();
 
@@ -615,7 +615,7 @@ namespace Training.BusinessLogic.Kunden
                 {
                     if (!string.IsNullOrEmpty(iban))
                     {
-                        item = await UOW.UOW.uow.Query<kunden>()
+                        item = await UOW.Uow._uow.Query<kunden>()
                             .Where(x => x.IBAN == iban).FirstOrDefaultAsync();
 
                         if (item == null)
@@ -703,13 +703,13 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 var lstKunden = new List<Kunden>();
-                var kunden = await UOW.UOW.uow.Query<kunden>().Where(x => x.ParkplatzEisring == true).ToListAsync();
+                var kunden = await UOW.Uow._uow.Query<kunden>().Where(x => x.ParkplatzEisring == true).ToListAsync();
                 foreach (var item in kunden)
                 {
                     Kunden k = new Kunden();
@@ -787,9 +787,9 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 var lstKunden = new List<Kunden>();
@@ -797,11 +797,11 @@ namespace Training.BusinessLogic.Kunden
 
                 if (onlyactive)
                 {
-                    kunden = await UOW.UOW.uow.Query<kunden>().Where(x => x.Guthaben < 0 && x.Verband.ToUpper() != "AUSGESCHIEDEN").OrderBy(x => x.KdNr).ToListAsync();
+                    kunden = await UOW.Uow._uow.Query<kunden>().Where(x => x.Guthaben < 0 && x.Verband.ToUpper() != "AUSGESCHIEDEN").OrderBy(x => x.KdNr).ToListAsync();
                 }
                 else
                 {
-                    kunden = await UOW.UOW.uow.Query<kunden>().Where(x => x.Guthaben < 0).OrderBy(x => x.KdNr).ToListAsync();
+                    kunden = await UOW.Uow._uow.Query<kunden>().Where(x => x.Guthaben < 0).OrderBy(x => x.KdNr).ToListAsync();
                 }
 
                 foreach (var item in kunden)
@@ -881,14 +881,14 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 List<Kunden> lstKunden = new List<Kunden>();
 
-                var kunden = await UOW.UOW.uow.Query<kunden>().Where(x => x.Guthaben < wert && x.Verband.ToUpper() != "AUSGESCHIEDEN").OrderBy(x => x.KdNr).ToListAsync();
+                var kunden = await UOW.Uow._uow.Query<kunden>().Where(x => x.Guthaben < wert && x.Verband.ToUpper() != "AUSGESCHIEDEN").OrderBy(x => x.KdNr).ToListAsync();
 
                 foreach (var item in kunden)
                 {
@@ -967,16 +967,16 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var ppe = await UOW.UOW.uow.Query<kunden>().Where(x => x.KdNr == kdnr).FirstOrDefaultAsync();
+                var ppe = await UOW.Uow._uow.Query<kunden>().Where(x => x.KdNr == kdnr).FirstOrDefaultAsync();
                 if (ppe != null)
                 {
                     ppe.Guthaben -= guthaben;
-                    await UOW.UOW.SaveAsync();
+                    await UOW.Uow.SaveAsync();
                 }
 
                 return await Kunden.GetById(ppe.ID);
@@ -991,12 +991,12 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var kunde = await UOW.UOW.uow.Query<kunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var kunde = await UOW.Uow._uow.Query<kunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (kunde != null)
                 {
                     kunde.Begruendung = begruendung;
@@ -1010,7 +1010,7 @@ namespace Training.BusinessLogic.Kunden
                         kunde.IBAN = iban;
                     }
 
-                    await UOW.UOW.SaveAsync();
+                    await UOW.Uow.SaveAsync();
                 }
 
             }
@@ -1025,17 +1025,17 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<kunden>().Where(x => x.KdNr == kdnr).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<kunden>().Where(x => x.KdNr == kdnr).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     result.Mahnungsmail = true;
                     result.DatumMahnungsmail = DateTime.Now;
-                    await UOW.UOW.SaveAsync();
+                    await UOW.Uow.SaveAsync();
                 }
             }
             catch (Exception)
@@ -1048,18 +1048,18 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<kunden>().Where(x => x.PreiseID == preiseId).ToListAsync();
+                var result = await UOW.Uow._uow.Query<kunden>().Where(x => x.PreiseID == preiseId).ToListAsync();
                 foreach (var item in result)
                 {
                     item.Wert = wert;
                     item.WertAbend = wertAbend;
                 }
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -1071,12 +1071,12 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var resultkunde = await UOW.UOW.uow.Query<kunden>().Where(x => x.KdNr == kdnr).FirstOrDefaultAsync();
+                var resultkunde = await UOW.Uow._uow.Query<kunden>().Where(x => x.KdNr == kdnr).FirstOrDefaultAsync();
 
                 resultkunde.Sperre = sperre;
                 resultkunde.Begruendung = begruendung;
@@ -1102,12 +1102,12 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var kunde = new kunden(UOW.UOW.uow);
+                var kunde = new kunden(UOW.Uow._uow);
                 kunde.KdNr = kdnr;
                 kunde.VName = vname;
                 kunde.NName = nname;
@@ -1167,7 +1167,7 @@ namespace Training.BusinessLogic.Kunden
 
                 if (saveImmediatly)
                 {
-                    await UOW.UOW.SaveAsync();
+                    await UOW.Uow.SaveAsync();
                 }
 
             }
@@ -1181,12 +1181,12 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var kunde = new kunden(UOW.UOW.uow);
+                var kunde = new kunden(UOW.Uow._uow);
                 kunde.KdNr = kdnr;
                 kunde.VName = vname;
                 kunde.NName = nname;
@@ -1199,7 +1199,7 @@ namespace Training.BusinessLogic.Kunden
 
                 if (saveImmediatly)
                 {
-                    await UOW.UOW.SaveAsync();
+                    await UOW.Uow.SaveAsync();
                 }
 
             }
@@ -1219,12 +1219,12 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var kunde = await UOW.UOW.uow.Query<kunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var kunde = await UOW.Uow._uow.Query<kunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (kunde != null)
                 {
                     kunde.KdNr = kdnr;
@@ -1285,7 +1285,7 @@ namespace Training.BusinessLogic.Kunden
 
                     if (saveImmediatly)
                     {
-                        await UOW.UOW.SaveAsync();
+                        await UOW.Uow.SaveAsync();
                     }
                 }
             }
@@ -1299,12 +1299,12 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var kunde = await UOW.UOW.uow.Query<kunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var kunde = await UOW.Uow._uow.Query<kunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (kunde != null)
                 {
                     kunde.KdNr = kundeeshers.KdNr;
@@ -1365,7 +1365,7 @@ namespace Training.BusinessLogic.Kunden
 
                     if (saveImmediatly)
                     {
-                        await UOW.UOW.SaveAsync();
+                        await UOW.Uow.SaveAsync();
                     }
                 }
             }
@@ -1379,12 +1379,12 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var kunde = await UOW.UOW.uow.Query<kunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var kunde = await UOW.Uow._uow.Query<kunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (kunde != null)
                 {
                     kunde.Guthaben += guthaben;
@@ -1392,7 +1392,7 @@ namespace Training.BusinessLogic.Kunden
 
                     if (saveImmediatly)
                     {
-                        await UOW.UOW.SaveAsync();
+                        await UOW.Uow.SaveAsync();
                     }
                 }
             }
@@ -1406,12 +1406,12 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var kunde = await UOW.UOW.uow.Query<kunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var kunde = await UOW.Uow._uow.Query<kunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (kunde != null)
                 {
                     kunde.Begruendung = begruendung;
@@ -1419,7 +1419,7 @@ namespace Training.BusinessLogic.Kunden
 
                     if (saveImmediatly)
                     {
-                        await UOW.UOW.SaveAsync();
+                        await UOW.Uow.SaveAsync();
                     }
                 }
             }
@@ -1433,19 +1433,19 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var kunde = await UOW.UOW.uow.Query<kunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var kunde = await UOW.Uow._uow.Query<kunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (kunde != null)
                 {
-                    await UOW.UOW.uow.DeleteAsync(kunde);
+                    await UOW.Uow._uow.DeleteAsync(kunde);
 
                     if (saveImmediatly)
                     {
-                        await UOW.UOW.SaveAsync();
+                        await UOW.Uow.SaveAsync();
                     }
                 }
             }
@@ -1459,11 +1459,11 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-                var item = await UOW.UOW.uow.Query<kunden>().Where(x => x.VName == vorname && x.NName == nachname).FirstOrDefaultAsync();
+                var item = await UOW.Uow._uow.Query<kunden>().Where(x => x.VName == vorname && x.NName == nachname).FirstOrDefaultAsync();
                 if (item == null)
                     return null;
 

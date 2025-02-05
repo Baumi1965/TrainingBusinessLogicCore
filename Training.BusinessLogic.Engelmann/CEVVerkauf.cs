@@ -31,12 +31,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<cevverkauf>().Where(x => x.Mitgliedsnummer == mitgliedsnummer && (x.BezahltCEV == false || x.BezahltEngelmann == false)).OrderBy(x => x.ID).ToListAsync();
+                var result = await UOW.Uow._uow.Query<cevverkauf>().Where(x => x.Mitgliedsnummer == mitgliedsnummer && (x.BezahltCEV == false || x.BezahltEngelmann == false)).OrderBy(x => x.ID).ToListAsync();
                 if (result == null)
                     return null;
 
@@ -76,12 +76,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<cevverkauf>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).OrderByDescending(x => x.Saison).ToListAsync();
+                var result = await UOW.Uow._uow.Query<cevverkauf>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).OrderByDescending(x => x.Saison).ToListAsync();
                 if (result == null)
                     return null;
 
@@ -121,12 +121,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<cevverkauf>().Where(x => x.Mitgliedsnummer == mitgliedsnummer && x.Saison == saison).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<cevverkauf>().Where(x => x.Mitgliedsnummer == mitgliedsnummer && x.Saison == saison).FirstOrDefaultAsync();
                 if (result == null)
                     return null;
 
@@ -161,20 +161,20 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<cevverkauf>().Where(x => x.ID == Id).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<cevverkauf>().Where(x => x.ID == Id).FirstOrDefaultAsync();
                 if (result != null)
                 {
-                    await UOW.UOW.uow.DeleteAsync(result);
+                    await UOW.Uow._uow.DeleteAsync(result);
                 }
 
                 if (saveImmediatly)
                 {
-                    await UOW.UOW.SaveAsync();
+                    await UOW.Uow.SaveAsync();
                 }
             }
             catch (Exception)
@@ -188,12 +188,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<cevverkauf>().Where(x => x.ID == Id).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<cevverkauf>().Where(x => x.ID == Id).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     result.CEVBetragBezahlt = betragCEVBezahlt;
@@ -204,7 +204,7 @@ namespace Training.BusinessLogic.Engelmann
                     result.DatumBezahltEngelmann = datumBezahltEngelmann;
                 }
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -219,12 +219,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                cevverkauf cevverkauf = new cevverkauf(UOW.UOW.uow)
+                cevverkauf cevverkauf = new cevverkauf(UOW.Uow._uow)
                 {
                     Mitgliedsnummer = mitgliedsnr,
                     Saison = saison,
@@ -242,7 +242,7 @@ namespace Training.BusinessLogic.Engelmann
                     Gast = gast,
                 };
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -256,12 +256,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var cevVerkauf = await UOW.UOW.uow.Query<cevverkauf>().Where(x => x.ID == id).FirstOrDefaultAsync();        
+                var cevVerkauf = await UOW.Uow._uow.Query<cevverkauf>().Where(x => x.ID == id).FirstOrDefaultAsync();        
                 if (cevVerkauf != null)
                 {
                     cevVerkauf.Saison = saison;
@@ -279,7 +279,7 @@ namespace Training.BusinessLogic.Engelmann
                     cevVerkauf.Gast = gast;
                 };
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -291,16 +291,16 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-                var result = await UOW.UOW.uow.Query<cevverkauf>().Where(x => x.Saison == saison && mitgliedsnummern.Contains(x.Mitgliedsnummer)).ToListAsync();
+                var result = await UOW.Uow._uow.Query<cevverkauf>().Where(x => x.Saison == saison && mitgliedsnummern.Contains(x.Mitgliedsnummer)).ToListAsync();
                 foreach (var item in result)
                 {
                     item.Erlagschein = true;
                 }
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -312,17 +312,17 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-                var result = await UOW.UOW.uow.Query<cevverkauf>().Where(x => x.Saison == saison && x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<cevverkauf>().Where(x => x.Saison == saison && x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     result.Mail = true;
                 }
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {

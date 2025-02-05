@@ -41,16 +41,16 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 List<Anzeige> lstAnzeige = new List<Anzeige>();
 
-                var resultgastkarten = UOW.UOW.uow.Query<kunden>().Where(x => x.VName.ToLower().Contains("gast")).Select(x => x.KdNr).ToList();
+                var resultgastkarten = UOW.Uow._uow.Query<kunden>().Where(x => x.VName.ToLower().Contains("gast")).Select(x => x.KdNr).ToList();
 
-                var resultgebucht = await UOW.UOW.uow.Query<gebucht>()
+                var resultgebucht = await UOW.Uow._uow.Query<gebucht>()
                     .Where(
                         x => ((x.TSEin != null && x.TSEin.Value.Date == ein.Date && x.TSAus == null) ||
                                 (x.TSEin != null && x.TSEin.Value.Date == ein.Date &&
@@ -76,7 +76,7 @@ namespace Training.BusinessLogic.Gebucht
                     string akader = string.Empty;
                     double guthaben = 0;
 
-                    var resultkunde = await UOW.UOW.uow
+                    var resultkunde = await UOW.Uow._uow
                         .Query<kunden>()
                         .Where(x => x.KdNr == result.KdNr)
                         .FirstOrDefaultAsync();
@@ -136,9 +136,9 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 List<Gebucht> lstGebucht = new List<Gebucht>();
@@ -148,40 +148,40 @@ namespace Training.BusinessLogic.Gebucht
                 {
                     if (from == null && to == null)
                     {
-                        lstgebucht = await UOW.UOW.uow.Query<gebucht>().Where(x => kundennummern.Contains(x.KdNr)).ToListAsync();
+                        lstgebucht = await UOW.Uow._uow.Query<gebucht>().Where(x => kundennummern.Contains(x.KdNr)).ToListAsync();
                     }
                     else if (from != null && to == null)
                     {
-                        lstgebucht = await UOW.UOW.uow.Query<gebucht>().Where(x => kundennummern.Contains(x.KdNr) && x.TSEin.Value.Date >= from.Value.Date).ToListAsync();
+                        lstgebucht = await UOW.Uow._uow.Query<gebucht>().Where(x => kundennummern.Contains(x.KdNr) && x.TSEin.Value.Date >= from.Value.Date).ToListAsync();
 
                     }
                     else if (from == null && to != null)
                     {
-                        lstgebucht = await UOW.UOW.uow.Query<gebucht>().Where(x => kundennummern.Contains(x.KdNr) && x.TSEin.Value.Date <= to.Value.Date).ToListAsync();
+                        lstgebucht = await UOW.Uow._uow.Query<gebucht>().Where(x => kundennummern.Contains(x.KdNr) && x.TSEin.Value.Date <= to.Value.Date).ToListAsync();
                     }
                     else
                     {
-                        lstgebucht = await UOW.UOW.uow.Query<gebucht>().Where(x => kundennummern.Contains(x.KdNr) && x.TSEin.Value.Date >= from.Value.Date && x.TSEin.Value.Date <= to.Value.Date).ToListAsync();
+                        lstgebucht = await UOW.Uow._uow.Query<gebucht>().Where(x => kundennummern.Contains(x.KdNr) && x.TSEin.Value.Date >= from.Value.Date && x.TSEin.Value.Date <= to.Value.Date).ToListAsync();
                     }
                 }
                 else
                 {
                     if (from == null && to == null)
                     {
-                        lstgebucht = await UOW.UOW.uow.Query<gebucht>().Where(x => kundennummern.Contains(x.KdNr) && x.Location == location.Value).ToListAsync();
+                        lstgebucht = await UOW.Uow._uow.Query<gebucht>().Where(x => kundennummern.Contains(x.KdNr) && x.Location == location.Value).ToListAsync();
                     }
                     else if (from != null && to == null)
                     {
-                        lstgebucht = await UOW.UOW.uow.Query<gebucht>().Where(x => kundennummern.Contains(x.KdNr) && x.Location == location.Value && x.TSEin.Value.Date >= from.Value.Date).ToListAsync();
+                        lstgebucht = await UOW.Uow._uow.Query<gebucht>().Where(x => kundennummern.Contains(x.KdNr) && x.Location == location.Value && x.TSEin.Value.Date >= from.Value.Date).ToListAsync();
 
                     }
                     else if (from == null && to != null)
                     {
-                        lstgebucht = await UOW.UOW.uow.Query<gebucht>().Where(x => kundennummern.Contains(x.KdNr) && x.Location == location.Value && x.TSEin.Value.Date <= to.Value.Date).ToListAsync();
+                        lstgebucht = await UOW.Uow._uow.Query<gebucht>().Where(x => kundennummern.Contains(x.KdNr) && x.Location == location.Value && x.TSEin.Value.Date <= to.Value.Date).ToListAsync();
                     }
                     else
                     {
-                        lstgebucht = await UOW.UOW.uow.Query<gebucht>().Where(x => kundennummern.Contains(x.KdNr) && x.Location == location.Value && x.TSEin.Value.Date >= from.Value.Date && x.TSEin.Value.Date <= to.Value.Date).ToListAsync();
+                        lstgebucht = await UOW.Uow._uow.Query<gebucht>().Where(x => kundennummern.Contains(x.KdNr) && x.Location == location.Value && x.TSEin.Value.Date >= from.Value.Date && x.TSEin.Value.Date <= to.Value.Date).ToListAsync();
                     }
                 }
 
@@ -227,12 +227,12 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.TSEin.Value.Date == ein.Date).OrderByDescending(x => x.TSEin).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.TSEin.Value.Date == ein.Date).OrderByDescending(x => x.TSEin).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     return result.ID;
@@ -250,12 +250,12 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<gebucht>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<gebucht>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     Gebucht gebucht = new Gebucht();
@@ -298,13 +298,13 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
 
-                var result = await UOW.UOW.uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.TSEin != null && x.TSEin.Value.Date == ein.Date && x.TSAus == null).OrderByDescending(x => x.TSEin).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.TSEin != null && x.TSEin.Value.Date == ein.Date && x.TSAus == null).OrderByDescending(x => x.TSEin).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     Gebucht gebucht = new Gebucht();
@@ -347,12 +347,12 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.TSEin != null && x.TSEin.Value.Date == ein.Date && x.TSAus == null && x.Location == location).OrderByDescending(x => x.TSEin).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.TSEin != null && x.TSEin.Value.Date == ein.Date && x.TSAus == null && x.Location == location).OrderByDescending(x => x.TSEin).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     Gebucht gebucht = new Gebucht();
@@ -395,12 +395,12 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.TSEin != null && x.TSEin.Value.Date == ein.Date && x.TSAus == null && x.Location == location).OrderByDescending(x => x.TSEin).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.TSEin != null && x.TSEin.Value.Date == ein.Date && x.TSAus == null && x.Location == location).OrderByDescending(x => x.TSEin).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     return result.ID;
@@ -418,12 +418,12 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.Location == location && x.TSEin.Value.Date == ein.Date).OrderByDescending(x => x.TSEin).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.Location == location && x.TSEin.Value.Date == ein.Date).OrderByDescending(x => x.TSEin).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     Gebucht gebucht = new Gebucht();
@@ -466,12 +466,12 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.TSEin.Value.Date == ein.Date && x.TSAus != null && x.Location == location).OrderByDescending(x => x.TSEin).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.TSEin.Value.Date == ein.Date && x.TSAus != null && x.Location == location).OrderByDescending(x => x.TSEin).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     Gebucht gebucht = new Gebucht();
@@ -514,16 +514,16 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-                var result = await UOW.UOW.uow.Query<gebucht>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<gebucht>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     result.TSEin = ein;
                     result.TSAus = null;
-                    await UOW.UOW.SaveAsync();
+                    await UOW.Uow.SaveAsync();
                 }
 
                 return await GetById(id);
@@ -538,12 +538,12 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<gebucht>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<gebucht>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     result.TSAus = aus;
@@ -559,11 +559,11 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-                var result = await UOW.UOW.uow.Query<gebucht>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<gebucht>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     result.TSEin = ein;
@@ -582,12 +582,12 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                gebucht g = new gebucht(UOW.UOW.uow);
+                gebucht g = new gebucht(UOW.Uow._uow);
                 g.Datum = ein.ToString("dd.MM.yyyy");
                 g.KdNr = kdnr;
                 g.Location = location;
@@ -596,7 +596,7 @@ namespace Training.BusinessLogic.Gebucht
                 g.Uhrzeit = ein.ToString("HH:mm");
                 g.VName = vname;
 
-                await UOW.UOW.uow.CommitChangesAsync();
+                await UOW.Uow._uow.CommitChangesAsync();
 
                 Gebucht gebucht = new Gebucht();
                 gebucht.Abend = g.Abend;
@@ -635,12 +635,12 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                gebucht g = new gebucht(UOW.UOW.uow);
+                gebucht g = new gebucht(UOW.Uow._uow);
                 g.Datum = ein.ToString("dd.MM.yyyy");
                 g.KdNr = kdnr;
                 g.Location = location;
@@ -650,7 +650,7 @@ namespace Training.BusinessLogic.Gebucht
                 g.Uhrzeit = ein.ToString("HH:mm");
                 g.VName = vname;
 
-                await UOW.UOW.uow.CommitChangesAsync();
+                await UOW.Uow._uow.CommitChangesAsync();
 
                 Gebucht gebucht = new Gebucht();
                 gebucht.Abend = g.Abend;
@@ -690,12 +690,12 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                gebucht g = new gebucht(UOW.UOW.uow);
+                gebucht g = new gebucht(UOW.Uow._uow);
                 g.Datum = datum;
                 g.KdNr = kdnr;
                 g.Location = location;
@@ -709,7 +709,7 @@ namespace Training.BusinessLogic.Gebucht
                 g.Abend = abend;
                 g.Adult = adult;
                 g.Wert = wert;
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
 
                 Gebucht gebucht = new Gebucht();
                 gebucht.Abend = g.Abend;
@@ -749,12 +749,12 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                gebucht g = new gebucht(UOW.UOW.uow);
+                gebucht g = new gebucht(UOW.Uow._uow);
                 g.Datum = datum.ToString("dd.MM.yyyy");
                 g.KdNr = kdnr;
                 g.Location = location;
@@ -770,7 +770,7 @@ namespace Training.BusinessLogic.Gebucht
                 g.Wert = wert;
                 g.TSEin = datum;
                 g.TSAus = ende;
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
 
                 Gebucht gebucht = new Gebucht();
                 gebucht.Abend = g.Abend;
@@ -810,12 +810,12 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var g = await UOW.UOW.uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.Location == location && x.Datum == datum).OrderByDescending(x => x.ID).FirstOrDefaultAsync();
+                var g = await UOW.Uow._uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.Location == location && x.Datum == datum).OrderByDescending(x => x.ID).FirstOrDefaultAsync();
                 if (g == null)
                 {
                     return null;
@@ -829,7 +829,7 @@ namespace Training.BusinessLogic.Gebucht
                 g.Abend = abend;
                 g.Adult = adult;
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
 
                 Gebucht gebucht = new Gebucht();
                 gebucht.Abend = g.Abend;
@@ -868,12 +868,12 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<gebucht>().Where(x => x.ID == gebucht.ID).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<gebucht>().Where(x => x.ID == gebucht.ID).FirstOrDefaultAsync();
 
                 result.Abend = gebucht.Abend;
                 result.Adult = gebucht.Adult;
@@ -901,14 +901,14 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 decimal bereitsGebucht = 0;
 
-                var resultGebuchtAll = await UOW.UOW.uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.TSEin.Value.Date == ein.Date).ToListAsync();
+                var resultGebuchtAll = await UOW.Uow._uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.TSEin.Value.Date == ein.Date).ToListAsync();
                 foreach (var item in resultGebuchtAll)
                 {
                     bereitsGebucht += Convert.ToDecimal(item.Wert);
@@ -926,11 +926,11 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
-                var result = await UOW.UOW.uow.Query<gebucht>()
+                var result = await UOW.Uow._uow.Query<gebucht>()
                     .Where(x => x.KdNr == kdnr &&
                         x.Location != location &&
                         x.TSEin.Value.Date == ein.Date)
@@ -964,12 +964,12 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.TSEin != null && x.TSAus == null && x.TSEin.Value.Date == ein.Date && x.Location != location).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.TSEin != null && x.TSAus == null && x.TSEin.Value.Date == ein.Date && x.Location != location).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     Gebucht gebucht = new Gebucht();
@@ -1012,12 +1012,12 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.Datum == datum).OrderByDescending(x => x.TSEin).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.Datum == datum).OrderByDescending(x => x.TSEin).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     Gebucht gebucht = new Gebucht();
@@ -1060,12 +1060,12 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.Datum == datum && x.Location == location).OrderByDescending(x => x.TSEin).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<gebucht>().Where(x => x.KdNr == kdnr && x.Datum == datum && x.Location == location).OrderByDescending(x => x.TSEin).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     return result.ID;
@@ -1083,16 +1083,16 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 foreach (var item in aenderungen)
                 {
                     string Datum = item.Datum.ToString("dd.MM.yyyy");
 
-                    var result = await UOW.UOW.uow.Query<gebucht>().Where(x => x.KdNr == item.KdNr && x.Datum == Datum && x.Location == item.Location).FirstOrDefaultAsync();
+                    var result = await UOW.Uow._uow.Query<gebucht>().Where(x => x.KdNr == item.KdNr && x.Datum == Datum && x.Location == item.Location).FirstOrDefaultAsync();
                     if (result == null)
                     {
                         continue;
@@ -1119,7 +1119,7 @@ namespace Training.BusinessLogic.Gebucht
                     result.TrainingBez = GenerateTrainingText(result);
                 }
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
 
             }
             catch (Exception)
@@ -1165,14 +1165,14 @@ namespace Training.BusinessLogic.Gebucht
             string kdnr = string.Empty;
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
 
 
-                var result = await UOW.UOW.uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "GET_ESHERS_ANWESENHEITSLISTE_VEREIN",
+                var result = await UOW.Uow._uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "GET_ESHERS_ANWESENHEITSLISTE_VEREIN",
                     new OperandValue(sportler ? 1 : 0),
                     new OperandValue(trainer ? 1 : 0),
                     new OperandValue(adult ? 1 : 0),
@@ -1324,14 +1324,14 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
 
 
-                var result = await UOW.UOW.uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "GET_ESHERS_ANWESENHEITSLISTE",
+                var result = await UOW.Uow._uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "GET_ESHERS_ANWESENHEITSLISTE",
                     new OperandValue(sportler ? 1 : 0),
                     new OperandValue(trainer ? 1 : 0),
                     new OperandValue(adult ? 1 : 0),
@@ -1472,12 +1472,12 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "CHECK_EIN_AUS_ESH", new OperandValue(kdnr), new OperandValue(ein.ToString("yyyyMMddHHmmss")), new OperandValue(location));
+                var result = await UOW.Uow._uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "CHECK_EIN_AUS_ESH", new OperandValue(kdnr), new OperandValue(ein.ToString("yyyyMMddHHmmss")), new OperandValue(location));
                 var returnValue = Convert.ToInt32(result.ResultSet.FirstOrDefault().Rows.FirstOrDefault().Values.FirstOrDefault());
                 return returnValue;
             }
@@ -1491,12 +1491,12 @@ namespace Training.BusinessLogic.Gebucht
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "CHECK_EINBUCHEN", new OperandValue(kdnr),
+                var result = await UOW.Uow._uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "CHECK_EINBUCHEN", new OperandValue(kdnr),
                                             new OperandValue(location),
                                             new OperandValue(ein.ToString("yyyyMMddHHmmss")),
                                             new OperandValue(buchungssystem ? 1 : 0),
@@ -1538,13 +1538,13 @@ namespace Training.BusinessLogic.Gebucht
         //{
         //    try
         //    {
-        //        if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+        //        if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
         //        {
-        //            UOW.UOW.Connect();
+        //            UOW.Uow.Connect();
         //        }
 
 
-        //        var result = await UOW.UOW.uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "CHECK_AUSBUCHEN_V2",
+        //        var result = await UOW.Uow._uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "CHECK_AUSBUCHEN_V2",
         //            new OperandValue(kdnr),
         //            new OperandValue(location),
         //            new OperandValue(now.ToString("yyyyMMddHHmmss")),
@@ -1580,7 +1580,7 @@ namespace Training.BusinessLogic.Gebucht
         //                trainings.AddRange(GetAdultTrainings(returnzeiten, preis, preisabend));
         //                decimal Trainingwert = await GetAdultTrainingWert(returneintritt, trainings, preis, preisabend, kdnr, location, username);
 
-        //                result = await UOW.UOW.uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "UPDATE_GEBUCHT",
+        //                result = await UOW.Uow._uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "UPDATE_GEBUCHT",
         //                new OperandValue(kdnr),        // Kartennummer
         //                new OperandValue(gebuchtId),            // Tabelle gebucht ID
         //                new OperandValue(Trainingwert),         // Wert
@@ -1609,7 +1609,7 @@ namespace Training.BusinessLogic.Gebucht
         //                trainings.AddRange(GetTrainings(returnzeiten, preis, preisabend, preiseiszeiteneshers, typ));
         //                decimal Trainingwert = await GetTrainingWert(returneintritt, trainings, preis, preisabend, preiseiszeiteneshers, returninotherlocation, kdnr, location, username);
 
-        //                result = await UOW.UOW.uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "UPDATE_GEBUCHT",
+        //                result = await UOW.Uow._uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "UPDATE_GEBUCHT",
         //                        new OperandValue(kdnr),                                     // Kartennummer
         //                        new OperandValue(gebuchtId),                                // Tabelle gebucht ID
         //                        new OperandValue(Trainingwert),                             // Wert
@@ -1754,7 +1754,7 @@ namespace Training.BusinessLogic.Gebucht
         //                    {
         //                        await ZeitenKalender.ZeitenKalender.UpdateFrequenz(itemtraining.ZeitenKalenderId, username);
         //                        await FrequenzGebucht.Add(kdnr, location, itemtraining.Status, Ein, true);
-        //                        await UOW.UOW.SaveAsync();
+        //                        await UOW.Uow.SaveAsync();
         //                    }
         //                }
         //                else
@@ -1764,7 +1764,7 @@ namespace Training.BusinessLogic.Gebucht
         //                    {
         //                        await ZeitenKalender.ZeitenKalender.UpdateFrequenz(itemtraining.ZeitenKalenderId, username);
         //                        await FrequenzGebucht.Add(kdnr, location, itemtraining.Status, Ein, true);
-        //                        await UOW.UOW.SaveAsync();
+        //                        await UOW.Uow.SaveAsync();
         //                    }
         //                }
         //            }
@@ -1818,7 +1818,7 @@ namespace Training.BusinessLogic.Gebucht
         //                {
         //                    await ZeitenKalender.ZeitenKalender.UpdateFrequenz(trainings[i].ZeitenKalenderId, username);
         //                    await FrequenzGebucht.Add(kdnr, location, trainings[i].Status, Ein, true);
-        //                    await UOW.UOW.SaveAsync();
+        //                    await UOW.Uow.SaveAsync();
         //                }
 
         //                IsTrainingEiszeitenESHERS = true;
@@ -1832,7 +1832,7 @@ namespace Training.BusinessLogic.Gebucht
         //                {
         //                    await ZeitenKalender.ZeitenKalender.UpdateFrequenz(trainings[i].ZeitenKalenderId, username);
         //                    await FrequenzGebucht.Add(kdnr, location, trainings[i].Status, Ein, true);
-        //                    await UOW.UOW.SaveAsync();
+        //                    await UOW.Uow.SaveAsync();
         //                }
 
         //                IsTrainingVormittag = true;
@@ -1846,7 +1846,7 @@ namespace Training.BusinessLogic.Gebucht
         //                {
         //                    await ZeitenKalender.ZeitenKalender.UpdateFrequenz(trainings[i].ZeitenKalenderId, username);
         //                    await FrequenzGebucht.Add(kdnr, location, trainings[i].Status, Ein, true);
-        //                    await UOW.UOW.SaveAsync();
+        //                    await UOW.Uow.SaveAsync();
         //                }
 
         //                IsTrainingNachmittag = true;
@@ -1860,7 +1860,7 @@ namespace Training.BusinessLogic.Gebucht
         //                {
         //                    await ZeitenKalender.ZeitenKalender.UpdateFrequenz(trainings[i].ZeitenKalenderId, username);
         //                    await FrequenzGebucht.Add(kdnr, location, trainings[i].Status, Ein, true);
-        //                    await UOW.UOW.SaveAsync();
+        //                    await UOW.Uow.SaveAsync();
         //                }
 
         //                IsTrainingAbend = true;
@@ -1887,7 +1887,7 @@ namespace Training.BusinessLogic.Gebucht
         //                {
         //                    await ZeitenKalender.ZeitenKalender.UpdateFrequenz(trainings[i].ZeitenKalenderId, username);
         //                    await FrequenzGebucht.Add(kdnr, location, trainings[i].Status, Ein, true);
-        //                    await UOW.UOW.SaveAsync();
+        //                    await UOW.Uow.SaveAsync();
         //                }
 
         //                IsTrainingEiszeitenESHERSAbend = true;

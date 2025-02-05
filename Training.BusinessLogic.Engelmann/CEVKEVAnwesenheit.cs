@@ -26,12 +26,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "GET_CEVKEV_ANWESENHEITSLISTE",
+                var result = await UOW.Uow._uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "GET_CEVKEV_ANWESENHEITSLISTE",
                     new OperandValue(von == null ? null : von.Value.ToString("yyyyMMdd")),
                     new OperandValue(bis == null ? null : bis.Value.ToString("yyyyMMdd")),
                     new OperandValue(cev ? 1 : 0),

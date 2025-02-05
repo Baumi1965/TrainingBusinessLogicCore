@@ -45,12 +45,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow
+                var result = await UOW.Uow._uow
                     .ExecuteSprocAsync(new System.Threading.CancellationToken(), "GET_KEV_KUNDEN");
 
                 if (result == null)
@@ -128,12 +128,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<kevkunden>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<kevkunden>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
 
                 if (result == null)
                 {
@@ -154,12 +154,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<kevkunden>().Where(x => x.Nachname == nachname && x.Vorname == vorname).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<kevkunden>().Where(x => x.Nachname == nachname && x.Vorname == vorname).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     return result.ID;
@@ -178,12 +178,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<kevkunden>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<kevkunden>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     return $"{result.Vorname} {result.Nachname}";
@@ -202,12 +202,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<kevkunden>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<kevkunden>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     return new KEVKunden
@@ -258,12 +258,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<kevkunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<kevkunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     result.Adresse = adresse;
@@ -277,7 +277,7 @@ namespace Training.BusinessLogic.Engelmann
 
                     if (saveImmediatly)
                     {
-                        await UOW.UOW.SaveAsync();
+                        await UOW.Uow.SaveAsync();
                     }
                 }
             }
@@ -292,12 +292,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
                 
-                var result = await UOW.UOW.uow.Query<kevkunden>().CountAsync();
+                var result = await UOW.Uow._uow.Query<kevkunden>().CountAsync();
                 return result;
             }
             catch (Exception)
@@ -310,9 +310,9 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 short KdNr = 20000;
@@ -320,7 +320,7 @@ namespace Training.BusinessLogic.Engelmann
                 var count = await CountAsync();
                 if (count > 0)
                 {
-                    var result = await UOW.UOW.uow.Query<kevkunden>().Select(x => x.Mitgliedsnummer).MaxAsync();
+                    var result = await UOW.Uow._uow.Query<kevkunden>().Select(x => x.Mitgliedsnummer).MaxAsync();
                     if (result != null)
                     {
                         KdNr = Convert.ToInt16(result);
@@ -341,12 +341,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var old = await UOW.UOW.uow.Query<kevkunden>().Where(x => x.MitgliedsnummerAlt ==  mitgliedsnummerAlt).FirstOrDefaultAsync();
+                var old = await UOW.Uow._uow.Query<kevkunden>().Where(x => x.MitgliedsnummerAlt ==  mitgliedsnummerAlt).FirstOrDefaultAsync();
                 if (old == null)
                 {
                     bool KundeESHERS = false;
@@ -358,7 +358,7 @@ namespace Training.BusinessLogic.Engelmann
                         KundeESHERS = true;
                         KdNrESHERS = kunde.KdNr;
                     }
-                    kevkunden kEV = new kevkunden(UOW.UOW.uow);
+                    kevkunden kEV = new kevkunden(UOW.Uow._uow);
                     kEV.Mitgliedsnummer = mitgliedsnummer;
                     kEV.MitgliedsnummerAlt = mitgliedsnummerAlt;
                     kEV.KundennummerEisring = KdNrESHERS;
@@ -379,7 +379,7 @@ namespace Training.BusinessLogic.Engelmann
 
                     if (saveImmediatly)
                     {
-                        await UOW.UOW.SaveAsync();
+                        await UOW.Uow.SaveAsync();
                     }
 
                 }
@@ -395,12 +395,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                kevkunden kevkunden = new kevkunden(UOW.UOW.uow)
+                kevkunden kevkunden = new kevkunden(UOW.Uow._uow)
                 {
                     Adresse = kevKunde.Adresse,
                     DSGV = kevKunde.DSGV,
@@ -432,7 +432,7 @@ namespace Training.BusinessLogic.Engelmann
                     Saison = kevKunde.Saison,
                 };
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -444,12 +444,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow
+                var result = await UOW.Uow._uow
                     .Query<kevkunden>()
                     .Where(x => x.ID == id)
                     .FirstOrDefaultAsync();
@@ -488,7 +488,7 @@ namespace Training.BusinessLogic.Engelmann
                 result.Ordner = kevKunde.Ordner;
                 result.Saison = kevKunde.Saison;
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -500,12 +500,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow
+                var result = await UOW.Uow._uow
                     .Query<kevkunden>()
                     .Where(x => x.ID == id)
                     .FirstOrDefaultAsync();
@@ -515,7 +515,7 @@ namespace Training.BusinessLogic.Engelmann
                     return;
                 }
 
-                await UOW.UOW.DeleteAsync(result);
+                await UOW.Uow.DeleteAsync(result);
             }
             catch (Exception)
             {

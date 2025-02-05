@@ -22,13 +22,13 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 List<CEVTraining> list = new List<CEVTraining>();
-                var result = await UOW.UOW.uow.Query<cevtraining>().ToListAsync();
+                var result = await UOW.Uow._uow.Query<cevtraining>().ToListAsync();
                 if (result != null)
                 {
                     foreach (var item in result)
@@ -57,12 +57,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<cevtraining>().Select(x => x.TrNr).MaxAsync();
+                var result = await UOW.Uow._uow.Query<cevtraining>().Select(x => x.TrNr).MaxAsync();
                 if (result == null)
                 {
                     return 1;
@@ -85,12 +85,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                cevtraining training = new cevtraining(UOW.UOW.uow)
+                cevtraining training = new cevtraining(UOW.Uow._uow)
                 {
                     Bezeichnung = bezeichnung,
                     Nachmittag = nachmittag,
@@ -100,7 +100,7 @@ namespace Training.BusinessLogic.Engelmann
                     ZeitVon1 = von,
                 };
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
 
             }
             catch (Exception)
@@ -113,12 +113,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var training = await UOW.UOW.uow.Query<cevtraining>()
+                var training = await UOW.Uow._uow.Query<cevtraining>()
                     .Where(x => x.ID == id)
                     .FirstOrDefaultAsync();
 
@@ -134,7 +134,7 @@ namespace Training.BusinessLogic.Engelmann
                 training.ZeitBis1 = bis;
                 training.ZeitVon1 = von;
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
 
             }
             catch (Exception)
@@ -147,12 +147,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var training = await UOW.UOW.uow.Query<cevtraining>()
+                var training = await UOW.Uow._uow.Query<cevtraining>()
                     .Where(x => x.ID == id)
                     .FirstOrDefaultAsync();
 
@@ -162,7 +162,7 @@ namespace Training.BusinessLogic.Engelmann
 
                 }
 
-                await UOW.UOW.DeleteAsync(training);
+                await UOW.Uow.DeleteAsync(training);
             }
             catch (Exception)
             {

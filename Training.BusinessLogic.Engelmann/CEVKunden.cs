@@ -62,12 +62,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<cevkunden>().Where(x => x.Nachname == nachname && x.Vorname == vorname).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<cevkunden>().Where(x => x.Nachname == nachname && x.Vorname == vorname).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     return result.ID;
@@ -86,12 +86,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow
+                var result = await UOW.Uow._uow
                     .ExecuteSprocAsync(new System.Threading.CancellationToken(), "GET_CEV_KUNDEN");
 
                 if (result == null)
@@ -186,12 +186,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<cevkunden>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<cevkunden>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
 
                 if (result == null)
                 {
@@ -212,12 +212,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<cevkunden>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<cevkunden>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     return $"{result.Vorname} {result.Nachname}";
@@ -236,12 +236,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<cevkunden>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<cevkunden>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     return new CEVKunden
@@ -307,12 +307,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<cevkunden>()
+                var result = await UOW.Uow._uow.Query<cevkunden>()
                     .Where(x => x.Mitgliedsnummer == n 
                                     || x.Mitgliedsnummer == o
                                     || x.Mitgliedsnummer == p
@@ -323,7 +323,7 @@ namespace Training.BusinessLogic.Engelmann
                 {
                     if (!string.IsNullOrEmpty(iban))
                     {
-                        result = await UOW.UOW.uow.Query<cevkunden>().Where(x => x.IBAN == iban).FirstOrDefaultAsync();
+                        result = await UOW.Uow._uow.Query<cevkunden>().Where(x => x.IBAN == iban).FirstOrDefaultAsync();
                         if (result == null)
                         {
                             return null;
@@ -396,12 +396,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<cevkunden>()
+                var result = await UOW.Uow._uow.Query<cevkunden>()
                     .Where(x => x.Mitgliedsnummer == mitgliedsnummer
                                     || x.Mitgliedsnummer == zg
                                     || x.Mitgliedsnummer == zr
@@ -413,7 +413,7 @@ namespace Training.BusinessLogic.Engelmann
                 {
                     if (!string.IsNullOrEmpty(iban))
                     {
-                        result = await UOW.UOW.uow.Query<cevkunden>().Where(x => x.IBAN == iban).FirstOrDefaultAsync();
+                        result = await UOW.Uow._uow.Query<cevkunden>().Where(x => x.IBAN == iban).FirstOrDefaultAsync();
                         if (result == null)
                         {
                             return null;
@@ -486,12 +486,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<cevkunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<cevkunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     result.Zusatzinfo5 = zusatzinfo;
@@ -502,7 +502,7 @@ namespace Training.BusinessLogic.Engelmann
 
                     if (saveImmediatly)
                     {
-                        await UOW.UOW.SaveAsync();
+                        await UOW.Uow.SaveAsync();
                     }
                 }
             }
@@ -518,12 +518,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<cevkunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<cevkunden>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     result.Adresse = adresse;
@@ -544,7 +544,7 @@ namespace Training.BusinessLogic.Engelmann
 
                     if (saveImmediatly)
                     {
-                        await UOW.UOW.SaveAsync();
+                        await UOW.Uow.SaveAsync();
                     }
                 }
             }
@@ -559,12 +559,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<cevkunden>().CountAsync();
+                var result = await UOW.Uow._uow.Query<cevkunden>().CountAsync();
                 return result;
             }
             catch (Exception)
@@ -577,9 +577,9 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 short KdNr = 10000;
@@ -587,7 +587,7 @@ namespace Training.BusinessLogic.Engelmann
                 var count = await CountAsync();
                 if (count > 0)
                 {
-                    var result = await UOW.UOW.uow.Query<cevkunden>().Select(x => x.Mitgliedsnummer).MaxAsync();
+                    var result = await UOW.Uow._uow.Query<cevkunden>().Select(x => x.Mitgliedsnummer).MaxAsync();
                     if (result != null)
                     {
                         KdNr = Convert.ToInt16(result);
@@ -608,12 +608,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var old = await UOW.UOW.uow.Query<cevkunden>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
+                var old = await UOW.Uow._uow.Query<cevkunden>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
                 if (old == null)
                 {
                     bool KundeESHERS = false;
@@ -625,7 +625,7 @@ namespace Training.BusinessLogic.Engelmann
                         KundeESHERS = true;
                         KdNrESHERS = kunde.KdNr;
                     }
-                    cevkunden cev = new cevkunden(UOW.UOW.uow);
+                    cevkunden cev = new cevkunden(UOW.Uow._uow);
                     cev.Mitgliedsnummer = mitgliedsnummer;
                     cev.KundennummerEisring = KdNrESHERS;
                     cev.Nachname = nachname;
@@ -653,7 +653,7 @@ namespace Training.BusinessLogic.Engelmann
 
                     if (saveImmediatly)
                     {
-                        await UOW.UOW.SaveAsync();
+                        await UOW.Uow.SaveAsync();
                     }
                 }
             }
@@ -667,18 +667,18 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<cevkunden>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<cevkunden>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     result.MBGebucht = null;
                 }
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -690,19 +690,19 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<cevkunden>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<cevkunden>().Where(x => x.Mitgliedsnummer == mitgliedsnummer).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     result.MBGebucht = saison;
                     result.MBVerrechnung = true;
                 }
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -714,12 +714,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                cevkunden cevkunden = new cevkunden(UOW.UOW.uow)
+                cevkunden cevkunden = new cevkunden(UOW.Uow._uow)
                 {
                     Abmeldung = cevKunde.Abmeldung,
                     AbmeldungMit = cevKunde.AbmeldungMit,
@@ -767,7 +767,7 @@ namespace Training.BusinessLogic.Engelmann
                     Foto = cevKunde.Foto,
                 };
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -779,12 +779,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow
+                var result = await UOW.Uow._uow
                     .Query<cevkunden>()
                     .Where(x => x.ID == id)
                     .FirstOrDefaultAsync();
@@ -839,7 +839,7 @@ namespace Training.BusinessLogic.Engelmann
                 result.Zusatzinfo5 = cevKunde.Zusatzinfo5;
                 result.Foto = cevKunde.Foto;
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -851,12 +851,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow
+                var result = await UOW.Uow._uow
                     .Query<cevkunden>()
                     .Where(x => x.ID == id)
                     .FirstOrDefaultAsync();
@@ -866,7 +866,7 @@ namespace Training.BusinessLogic.Engelmann
                     return;
                 }
 
-                await UOW.UOW.DeleteAsync(result);
+                await UOW.Uow.DeleteAsync(result);
             }
             catch (Exception)
             {

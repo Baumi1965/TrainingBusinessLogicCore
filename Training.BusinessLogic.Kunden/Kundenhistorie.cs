@@ -79,12 +79,12 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var kunde = new kundenhistorie(UOW.UOW.uow);
+                var kunde = new kundenhistorie(UOW.Uow._uow);
                 kunde.KdNr = kdnr;
                 kunde.VName = vname;
                 kunde.NName = nname;
@@ -142,7 +142,7 @@ namespace Training.BusinessLogic.Kunden
 
                 if (saveImmediatly)
                 {
-                    await UOW.UOW.SaveAsync();
+                    await UOW.Uow.SaveAsync();
                 }
 
             }
@@ -156,12 +156,12 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var kunde = new kundenhistorie(UOW.UOW.uow);
+                var kunde = new kundenhistorie(UOW.Uow._uow);
                 kunde.KdNr = esherskunde.KdNr;
                 kunde.VName = esherskunde.VName;
                 kunde.NName = esherskunde.NName;
@@ -219,7 +219,7 @@ namespace Training.BusinessLogic.Kunden
 
                 if (saveImmediatly)
                 {
-                    await UOW.UOW.SaveAsync();
+                    await UOW.Uow.SaveAsync();
                 }
 
             }
@@ -233,12 +233,12 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var kunde = new kundenhistorie(UOW.UOW.uow);
+                var kunde = new kundenhistorie(UOW.Uow._uow);
                 kunde.KdNr = kdnr;
                 kunde.VName = vname;
                 kunde.NName = nname;
@@ -251,7 +251,7 @@ namespace Training.BusinessLogic.Kunden
 
                 if (saveImmediatly)
                 {
-                    await UOW.UOW.SaveAsync();
+                    await UOW.Uow.SaveAsync();
                 }
 
             }
@@ -265,9 +265,9 @@ namespace Training.BusinessLogic.Kunden
         {
             try
             {
-				if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+				if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
 				{
-					UOW.UOW.Connect();
+					UOW.Uow.Connect();
 				}
 
 				var result = new List<kundenhistorie>();
@@ -276,14 +276,14 @@ namespace Training.BusinessLogic.Kunden
                 {
                     if (von == null && bis == null)
                     {
-						result = await UOW.UOW.uow.Query<kundenhistorie>()
+						result = await UOW.Uow._uow.Query<kundenhistorie>()
                             .OrderBy(x => x.KdNr)
                             .ThenBy(x => x.DatumAenderung)
                             .ToListAsync();
 					}
 					else if (von != null && bis == null)
                     {
-						result = await UOW.UOW.uow.Query<kundenhistorie>()
+						result = await UOW.Uow._uow.Query<kundenhistorie>()
                             .Where(x => x.DatumAenderung.Value.Date >= von.Value.Date)
 							.OrderBy(x => x.KdNr)
 							.ThenBy(x => x.DatumAenderung)
@@ -292,7 +292,7 @@ namespace Training.BusinessLogic.Kunden
 					}
 					else if (von == null && bis != null)
                     {
-						result = await UOW.UOW.uow.Query<kundenhistorie>()
+						result = await UOW.Uow._uow.Query<kundenhistorie>()
 							.Where(x => x.DatumAenderung.Value.Date <= bis.Value.Date)
 							.OrderBy(x => x.KdNr)
 							.ThenBy(x => x.DatumAenderung)
@@ -300,7 +300,7 @@ namespace Training.BusinessLogic.Kunden
 					}
                     else if (von != null && bis != null)
                     {
-						result = await UOW.UOW.uow.Query<kundenhistorie>()
+						result = await UOW.Uow._uow.Query<kundenhistorie>()
 							.Where(x => x.DatumAenderung.Value.Date >= von.Value.Date && x.DatumAenderung.Value.Date <= bis.Value.Date)
 							.OrderBy(x => x.KdNr)
 							.ThenBy(x => x.DatumAenderung)
@@ -311,14 +311,14 @@ namespace Training.BusinessLogic.Kunden
                 {
 					if (von == null && bis == null)
 					{
-						result = await UOW.UOW.uow.Query<kundenhistorie>()
+						result = await UOW.Uow._uow.Query<kundenhistorie>()
                             .Where(x => x.KdNr == kdnr)
 							.OrderBy(x => x.DatumAenderung)
 							.ToListAsync();
 					}
 					else if (von != null && bis == null)
 					{
-						result = await UOW.UOW.uow.Query<kundenhistorie>()
+						result = await UOW.Uow._uow.Query<kundenhistorie>()
 							.Where(x => x.KdNr == kdnr && x.DatumAenderung.Value.Date >= von.Value.Date)
 							.OrderBy(x => x.DatumAenderung)
 							.ToListAsync();
@@ -326,14 +326,14 @@ namespace Training.BusinessLogic.Kunden
 					}
 					else if (von == null && bis != null)
 					{
-						result = await UOW.UOW.uow.Query<kundenhistorie>()
+						result = await UOW.Uow._uow.Query<kundenhistorie>()
 							.Where(x => x.KdNr == kdnr && x.DatumAenderung.Value.Date <= bis.Value.Date)
 							.OrderBy(x => x.DatumAenderung)
 							.ToListAsync();
 					}
 					else if (von != null && bis != null)
 					{
-						result = await UOW.UOW.uow.Query<kundenhistorie>()
+						result = await UOW.Uow._uow.Query<kundenhistorie>()
 							.Where(x => x.KdNr == kdnr && x.DatumAenderung.Value.Date >= von.Value.Date && x.DatumAenderung.Value.Date <= bis.Value.Date)
 							.OrderBy(x => x.DatumAenderung)
 							.ToListAsync();

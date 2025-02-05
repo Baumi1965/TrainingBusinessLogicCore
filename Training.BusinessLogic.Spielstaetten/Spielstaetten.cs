@@ -16,20 +16,20 @@ namespace Training.BusinessLogic.Spielstaetten
         public string PLZ { get; set; }
         public string Ort { get; set; }
         public string Color { get; set; }
-
-
+        public int? BtsTicketId { get; set; }
+        public Guid Guid { get; set; }
 
         public static async Task<List<Spielstaetten>> GetAsync()
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var spielstaetten = await UOW.UOW.uow.Query<spielstaetten>().ToListAsync();
-                List<Spielstaetten> lstSpielstaetten = new List<Spielstaetten>();
+                var spielstaetten = await UOW.Uow._uow.Query<spielstaetten>().ToListAsync();
+                var lstSpielstaetten = new List<Spielstaetten>();
                 foreach (var item in spielstaetten)
                 {
                     lstSpielstaetten.Add(
@@ -41,7 +41,9 @@ namespace Training.BusinessLogic.Spielstaetten
                             Color = item.Color,
                             PLZ = item.PLZ,
                             Ort = item.Ort,
-                            ID = item.ID
+                            ID = item.ID,
+                            BtsTicketId = item.BTSTicketId,
+                            Guid = new Guid(item.Guid),
                         });
                 }
                 return lstSpielstaetten;
@@ -52,19 +54,49 @@ namespace Training.BusinessLogic.Spielstaetten
             }
         }
 
+        public static async Task<List<Spielstaetten>> GetByBtsTicketIdAsync(int btsTicketId)
+        {
+            try
+            {
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
+                {
+                    UOW.Uow.Connect();
+                }
+
+                var spielstaetten = await UOW.Uow._uow.Query<spielstaetten>().Where(x => x.BTSTicketId == btsTicketId).ToListAsync();
+                return spielstaetten.Select(item => new Spielstaetten
+                    {
+                        Adresse1 = item.Adresse1,
+                        Adresse2 = item.Adresse2,
+                        Bezeichnung = item.Bezeichnung,
+                        Color = item.Color,
+                        PLZ = item.PLZ,
+                        Ort = item.Ort,
+                        ID = item.ID,
+                        BtsTicketId = item.BTSTicketId,
+                        Guid = new Guid(item.Guid),
+                    })
+                    .ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        
         public static async Task DeleteAsync(int id)
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var spielstaette = await UOW.UOW.uow.Query<spielstaetten>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var spielstaette = await UOW.Uow._uow.Query<spielstaetten>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (spielstaette != null)
                 {
-                    await UOW.UOW.DeleteAsync(spielstaette);
+                    await UOW.Uow.DeleteAsync(spielstaette);
                 }
             }
             catch (Exception)
@@ -73,26 +105,28 @@ namespace Training.BusinessLogic.Spielstaetten
             }
         }
 
-        public static async Task AddAsync(string bezeichnung, string adresse1, string adresse2, string plz, string ort)
+        public static async Task AddAsync(string bezeichnung, string adresse1, string adresse2, string plz, string ort, int? btsTicketId = null)
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                spielstaetten spielstaette = new spielstaetten(UOW.UOW.uow)
+                spielstaetten spielstaette = new spielstaetten(UOW.Uow._uow)
                 {
                     Bezeichnung = bezeichnung,
                     Adresse1 = adresse1,
                     Adresse2 = adresse2,
                     PLZ = plz,
                     Ort = ort,
-                    Color = null
+                    Color = null,
+                    BTSTicketId = btsTicketId,
+                    Guid = Guid.NewGuid().ToString(),
                 };
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -100,16 +134,16 @@ namespace Training.BusinessLogic.Spielstaetten
             }
         }
 
-        public static async Task UpdateAsync(int id, string bezeichnung, string adresse1, string adresse2, string plz, string ort)
+        public static async Task UpdateAsync(int id, string bezeichnung, string adresse1, string adresse2, string plz, string ort, int? btsTicketId = null)
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var spielstaette = await UOW.UOW.uow.Query<spielstaetten>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var spielstaette = await UOW.Uow._uow.Query<spielstaetten>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (spielstaette != null)
                 {
                     spielstaette.Bezeichnung = bezeichnung;
@@ -117,9 +151,13 @@ namespace Training.BusinessLogic.Spielstaetten
                     spielstaette.Adresse2 = adresse2;
                     spielstaette.PLZ = plz;
                     spielstaette.Ort = ort;
+                    if (spielstaette.BTSTicketId != null)
+                    {
+                        spielstaette.BTSTicketId = btsTicketId;
+                    }
                 };
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -131,12 +169,12 @@ namespace Training.BusinessLogic.Spielstaetten
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var spielstaetten = await UOW.UOW.uow.Query<spielstaetten>().Where(x => x.Bezeichnung.ToLower().Contains("eisring") || x.Bezeichnung.ToLower().Contains("eisstadthalle")).ToListAsync();
+                var spielstaetten = await UOW.Uow._uow.Query<spielstaetten>().Where(x => x.Bezeichnung.ToLower().Contains("eisring") || x.Bezeichnung.ToLower().Contains("eisstadthalle")).ToListAsync();
                 List<Spielstaetten> lstSpielstaetten = new List<Spielstaetten>();
                 foreach (var item in spielstaetten)
                 {
@@ -149,7 +187,9 @@ namespace Training.BusinessLogic.Spielstaetten
                             Color = item.Color,
                             PLZ = item.PLZ,
                             Ort = item.Ort,
-                            ID = item.ID
+                            ID = item.ID,
+                            BtsTicketId = item.BTSTicketId,
+                            Guid = new Guid(item.Guid),
                         });
                 }
                 return lstSpielstaetten;
@@ -164,12 +204,12 @@ namespace Training.BusinessLogic.Spielstaetten
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var spielstaetten = await UOW.UOW.uow.Query<spielstaetten>().Where(x => !x.Bezeichnung.ToLower().Contains("frei")).ToListAsync();
+                var spielstaetten = await UOW.Uow._uow.Query<spielstaetten>().Where(x => !x.Bezeichnung.ToLower().Contains("frei")).ToListAsync();
                 List<Spielstaetten> lstSpielstaetten = new List<Spielstaetten>();
                 foreach (var item in spielstaetten)
                 {
@@ -182,7 +222,9 @@ namespace Training.BusinessLogic.Spielstaetten
                             Color = item.Color,
                             PLZ = item.PLZ,
                             Ort = item.Ort,
-                            ID = item.ID
+                            ID = item.ID,
+                            BtsTicketId = item.BTSTicketId,
+                            Guid = new Guid(item.Guid),
                         });
                 }
                 return lstSpielstaetten;
@@ -197,12 +239,12 @@ namespace Training.BusinessLogic.Spielstaetten
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var spielstaetten = await UOW.UOW.uow.Query<spielstaetten>().Where(x => !x.Bezeichnung.ToLower().Contains("frei") && (x.Bezeichnung.ToLower().Contains("eisring") || x.Bezeichnung.ToLower().Contains("eisstadthalle"))).ToListAsync();
+                var spielstaetten = await UOW.Uow._uow.Query<spielstaetten>().Where(x => !x.Bezeichnung.ToLower().Contains("frei") && (x.Bezeichnung.ToLower().Contains("eisring") || x.Bezeichnung.ToLower().Contains("eisstadthalle"))).ToListAsync();
 
                 List<Spielstaetten> lstSpielstaetten = new List<Spielstaetten>();
                 foreach (var item in spielstaetten)
@@ -216,7 +258,9 @@ namespace Training.BusinessLogic.Spielstaetten
                             Color = item.Color,
                             PLZ = item.PLZ,
                             Ort = item.Ort,
-                            ID = item.ID
+                            ID = item.ID,
+                            BtsTicketId = item.BTSTicketId,
+                            Guid = new Guid(item.Guid),
                         });
                 }
                 return lstSpielstaetten;
@@ -231,12 +275,12 @@ namespace Training.BusinessLogic.Spielstaetten
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var spielstaetten = await UOW.UOW.uow.Query<spielstaetten>().Where(x => x.Bezeichnung.ToLower().Contains("Engelmann")).ToListAsync();
+                var spielstaetten = await UOW.Uow._uow.Query<spielstaetten>().Where(x => x.Bezeichnung.ToLower().Contains("Engelmann")).ToListAsync();
                 List<Spielstaetten> lstSpielstaetten = new List<Spielstaetten>();
                 foreach (var item in spielstaetten)
                 {
@@ -249,7 +293,9 @@ namespace Training.BusinessLogic.Spielstaetten
                             Color = item.Color,
                             PLZ = item.PLZ,
                             Ort = item.Ort,
-                            ID = item.ID
+                            ID = item.ID,
+                            BtsTicketId = item.BTSTicketId,
+                            Guid = new Guid(item.Guid),
                         });
                 }
                 return lstSpielstaetten;
@@ -264,12 +310,12 @@ namespace Training.BusinessLogic.Spielstaetten
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var spielstaette = await UOW.UOW.uow.Query<spielstaetten>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var spielstaette = await UOW.Uow._uow.Query<spielstaetten>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 return new Spielstaetten
                 {
                     Adresse1 = spielstaette.Adresse1,
@@ -278,7 +324,9 @@ namespace Training.BusinessLogic.Spielstaetten
                     Color = spielstaette.Color,
                     ID = spielstaette.ID,
                     Ort = spielstaette.Ort,
-                    PLZ = spielstaette.PLZ
+                    PLZ = spielstaette.PLZ,
+                    BtsTicketId = spielstaette.BTSTicketId,
+                    Guid = new Guid(spielstaette.Guid),
                 };
             }
             catch (Exception)
@@ -291,12 +339,12 @@ namespace Training.BusinessLogic.Spielstaetten
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var spielstaette = await UOW.UOW.uow.Query<spielstaetten>().Where(x => x.Bezeichnung == name).FirstOrDefaultAsync();
+                var spielstaette = await UOW.Uow._uow.Query<spielstaetten>().Where(x => x.Bezeichnung == name).FirstOrDefaultAsync();
                 return new Spielstaetten
                 {
                     Adresse1 = spielstaette.Adresse1,
@@ -305,7 +353,9 @@ namespace Training.BusinessLogic.Spielstaetten
                     Color = spielstaette.Color,
                     ID = spielstaette.ID,
                     Ort = spielstaette.Ort,
-                    PLZ = spielstaette.PLZ
+                    PLZ = spielstaette.PLZ,
+                    BtsTicketId = spielstaette.BTSTicketId,
+                    Guid = new Guid(spielstaette.Guid),
                 };
             }
             catch (Exception)
@@ -314,6 +364,5 @@ namespace Training.BusinessLogic.Spielstaetten
                 throw;
             }
         }
-
     }
 }

@@ -59,6 +59,19 @@ namespace Training.BusinessLogic.UOW.Models
             set { SetPropertyValue<string>(nameof(Color), ref fColor, value); }
         }
 
+        int? fBTSTicketId;
+        public int? BTSTicketId
+        {
+            get { return fBTSTicketId; }
+            set { SetPropertyValue<int?>(nameof(BTSTicketId), ref fBTSTicketId, value); }
+        }
+        
+        private string fGuid;
+        public string Guid
+        {
+            get => fGuid;
+            set => SetPropertyValue<string>(nameof(Guid), ref fGuid, value);
+        }
     }
 
 }

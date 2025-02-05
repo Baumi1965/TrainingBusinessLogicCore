@@ -19,12 +19,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<ceveinlassengelmann>().OrderBy(x => x.ID).ToListAsync();
+                var result = await UOW.Uow._uow.Query<ceveinlassengelmann>().OrderBy(x => x.ID).ToListAsync();
                 if (result == null)
                 {
                     return null;
@@ -57,9 +57,9 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 int VorlaufZeit = 30;
@@ -108,7 +108,7 @@ namespace Training.BusinessLogic.Engelmann
                         throw new Exception("ungültiger wochentag");
                 }
 
-                var result = await UOW.UOW.uow.Query<ceveinlassengelmann>().Where(x => x.Active == true && x.WeekdayNr == weekdayNr).OrderBy(x => x.ID).ToListAsync();
+                var result = await UOW.Uow._uow.Query<ceveinlassengelmann>().Where(x => x.Active == true && x.WeekdayNr == weekdayNr).OrderBy(x => x.ID).ToListAsync();
                 if (result == null || result.Count == 0)
                 {
                     return false;
@@ -150,12 +150,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<ceveinlassengelmann>().Where(x => x.Weekday == weekday && x.TimeFrom == timefrom).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<ceveinlassengelmann>().Where(x => x.Weekday == weekday && x.TimeFrom == timefrom).FirstOrDefaultAsync();
                 if (result == null)
                 {
                     return false;
@@ -175,23 +175,23 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 Weekdays dayofWeek = (Weekdays)Enum.Parse(typeof(Weekdays), weekday);
                 int weekdayNr = (int)dayofWeek;
 
 
-                ceveinlassengelmann einlass = new ceveinlassengelmann(UOW.UOW.uow);
+                ceveinlassengelmann einlass = new ceveinlassengelmann(UOW.Uow._uow);
                 einlass.Weekday = weekday;
                 einlass.TimeFrom = from;
                 einlass.TimeTill = till;
                 einlass.Active = active;
                 einlass.WeekdayNr = weekdayNr;
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -203,12 +203,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var einlass = await UOW.UOW.uow.Query<ceveinlassengelmann>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var einlass = await UOW.Uow._uow.Query<ceveinlassengelmann>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (einlass == null)
                 {
                     return;
@@ -223,7 +223,7 @@ namespace Training.BusinessLogic.Engelmann
                 einlass.Active = active;
                 einlass.WeekdayNr = weekdayNr;
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -235,18 +235,18 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var einlass = await UOW.UOW.uow.Query<ceveinlassengelmann>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var einlass = await UOW.Uow._uow.Query<ceveinlassengelmann>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (einlass == null)
                 {
                     return;
                 }
 
-                await UOW.UOW.DeleteAsync(einlass);
+                await UOW.Uow.DeleteAsync(einlass);
             }
             catch (Exception)
             {

@@ -27,14 +27,14 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if(UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if(UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 List<CEVOffeneBetraege> offeneBetraege = new List<CEVOffeneBetraege>();
 
-                var result = await UOW.UOW.uow
+                var result = await UOW.Uow._uow
                     .ExecuteSprocAsync(new System.Threading.CancellationToken(), "GET_CEV_OFFENEBETRAEGE", saison);
                 var returnvorschreibung = result.ResultSet.FirstOrDefault();
 

@@ -24,12 +24,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var preis = await UOW.UOW.uow.Query<cevpreise>().Where(x => x.Saison == saison).FirstOrDefaultAsync();
+                var preis = await UOW.Uow._uow.Query<cevpreise>().Where(x => x.Saison == saison).FirstOrDefaultAsync();
                 if (preis == null)
                 {
                     return null;
@@ -60,12 +60,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<cevpreise>().OrderBy(x => x.Saison).ToListAsync();
+                var result = await UOW.Uow._uow.Query<cevpreise>().OrderBy(x => x.Saison).ToListAsync();
                 if (result == null)
                 {
                     return null;
@@ -102,12 +102,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<cevpreise>().Where(x => x.Saison == saison).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<cevpreise>().Where(x => x.Saison == saison).FirstOrDefaultAsync();
                 if (result == null)
                 {
                     return false;
@@ -127,12 +127,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                cevpreise preis = new cevpreise(UOW.UOW.uow);
+                cevpreise preis = new cevpreise(UOW.Uow._uow);
                 preis.MB = mb;
                 preis.MBGast = mbGast;
                 preis.MBAdult = mbAdult;
@@ -142,7 +142,7 @@ namespace Training.BusinessLogic.Engelmann
                 preis.SKAdult = skAdult;
                 preis.SKTeil = skteil;
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -154,12 +154,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var preis = await UOW.UOW.uow.Query<cevpreise>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var preis = await UOW.Uow._uow.Query<cevpreise>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (preis == null)
                 {
                     return;
@@ -174,7 +174,7 @@ namespace Training.BusinessLogic.Engelmann
                 preis.SKAdult = skAdult;
                 preis.SKTeil = skteil;
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -186,18 +186,18 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var preis = await UOW.UOW.uow.Query<cevpreise>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var preis = await UOW.Uow._uow.Query<cevpreise>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (preis == null)
                 {
                     return;
                 }
 
-                await UOW.UOW.DeleteAsync(preis);
+                await UOW.Uow.DeleteAsync(preis);
             }
             catch (Exception)
             {

@@ -87,5 +87,19 @@ namespace Training.BusinessLogic.UOW.Models
             get { return fReadOnly; }
             set { SetPropertyValue<bool?>(nameof(ReadOnly), ref fReadOnly, value); }
         }
+        
+        string fGuid;
+
+        public string Guid
+        {
+            get
+            {
+                return fGuid;
+            }
+            set
+            {
+                SetPropertyValue<string>(nameof(Guid), ref fGuid, value);
+            }
+        }
     }
 }

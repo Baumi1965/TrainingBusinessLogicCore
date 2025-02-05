@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net48;net6.0;net8.0</TargetFrameworks>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Training.BusinessLogic.Shared\Training.BusinessLogic.Shared.csproj" />
+      <ProjectReference Include="..\Training.BusinessLogic.UOW\Training.BusinessLogic.UOW.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.CSharp" Condition="'$(TargetFramework)' == 'net48'" />
+    </ItemGroup>
+
+</Project>

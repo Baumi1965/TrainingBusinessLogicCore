@@ -26,12 +26,12 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                cevkevbuchungen cevkev = new cevkevbuchungen(UOW.UOW.uow)
+                cevkevbuchungen cevkev = new cevkevbuchungen(UOW.Uow._uow)
                 {
                     CEV = cev,
                     Datum = ein,
@@ -46,7 +46,7 @@ namespace Training.BusinessLogic.Engelmann
                     TSAus = aus
                 };
 
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -60,15 +60,15 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var resbuch = await UOW.UOW.uow.Query<cevkevbuchungen>().Where(x => x.KdNr == kdnr && x.TSEin == searchEin).FirstOrDefaultAsync();
+                var resbuch = await UOW.Uow._uow.Query<cevkevbuchungen>().Where(x => x.KdNr == kdnr && x.TSEin == searchEin).FirstOrDefaultAsync();
                 if (resbuch == null)
                 {
-                    cevkevbuchungen cevkev = new cevkevbuchungen(UOW.UOW.uow)
+                    cevkevbuchungen cevkev = new cevkevbuchungen(UOW.Uow._uow)
                     {
                         CEV = cev,
                         Datum = ein,
@@ -92,7 +92,7 @@ namespace Training.BusinessLogic.Engelmann
                     resbuch.Vormittag = vormittag;
                     resbuch.Nachmittag = nachmittag;
                 }
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -105,15 +105,15 @@ namespace Training.BusinessLogic.Engelmann
         {
 			try
 			{
-				if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+				if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
 				{
-					UOW.UOW.Connect();
+					UOW.Uow.Connect();
 				}
 
-                var result = await UOW.UOW.uow.Query<cevkevbuchungen>().Where(x => x.ID == id).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<cevkevbuchungen>().Where(x => x.ID == id).FirstOrDefaultAsync();
                 if (result != null)
                 {
-                    await UOW.UOW.DeleteAsync(result);
+                    await UOW.Uow.DeleteAsync(result);
 				}
 			}
 			catch (Exception)

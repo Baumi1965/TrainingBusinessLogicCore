@@ -17,6 +17,8 @@ namespace Training.BusinessLogic.Einstellungen
         public string Description { get; set; }
         public string Type { get; set; }
         public bool ReadOnly { get; set; }
+        public Guid Guid { get; set; }
+        
         public Einstellungen()
         {
 
@@ -31,20 +33,21 @@ namespace Training.BusinessLogic.Einstellungen
             Description = description;
             Type = type;
             ReadOnly = readOnly;
+            Guid = Guid.NewGuid();
         }
 
         public static async Task<List<Einstellungen>> GetAsync()
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 List<Einstellungen> lstEinstellungen = new List<Einstellungen>();
 
-                var ein = await UOW.UOW.uow.Query<einstellungen>().ToListAsync();
+                var ein = await UOW.Uow._uow.Query<einstellungen>().ToListAsync();
                 foreach (var item in ein)
                 {
                     lstEinstellungen.Add(new Einstellungen
@@ -57,6 +60,7 @@ namespace Training.BusinessLogic.Einstellungen
                         Description = item.Description,
                         Type = item.Type,
                         ReadOnly = item.ReadOnly != null && Convert.ToBoolean(item.ReadOnly),
+                        Guid = new Guid(item.Guid),
                     });
                 }
                 return lstEinstellungen;
@@ -71,14 +75,14 @@ namespace Training.BusinessLogic.Einstellungen
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 List<Einstellungen> lstEinstellungen = new List<Einstellungen>();
 
-                var ein = await UOW.UOW.uow.Query<einstellungen>().Where(x => x.Setting == key).FirstOrDefaultAsync();
+                var ein = await UOW.Uow._uow.Query<einstellungen>().Where(x => x.Setting == key).FirstOrDefaultAsync();
                 if (ein != null)
                 {
                     Einstellungen Einstellung = new Einstellungen
@@ -91,6 +95,7 @@ namespace Training.BusinessLogic.Einstellungen
                         Description = ein.Description,
                         Type = ein.Type,
                         ReadOnly = ein.ReadOnly != null && Convert.ToBoolean(ein.ReadOnly),
+                        Guid = new Guid(ein.Guid),
                     };
                     return Einstellung;
                 }
@@ -109,14 +114,14 @@ namespace Training.BusinessLogic.Einstellungen
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 List<Einstellungen> lstEinstellungen = new List<Einstellungen>();
 
-                var ein = await UOW.UOW.uow.Query<einstellungen>().Where(x => x.Setting.StartsWith(key) && x.Spielstaette == location).FirstOrDefaultAsync();
+                var ein = await UOW.Uow._uow.Query<einstellungen>().Where(x => x.Setting.StartsWith(key) && x.Spielstaette == location).FirstOrDefaultAsync();
                 Einstellungen Einstellung = new Einstellungen
                 {
                     ID = ein.ID,
@@ -127,6 +132,7 @@ namespace Training.BusinessLogic.Einstellungen
                     Description = ein.Description,
                     Type = ein.Type,
                     ReadOnly = ein.ReadOnly != null && Convert.ToBoolean(ein.ReadOnly),
+                    Guid = new Guid(ein.Guid),
                 };
                 return Einstellung;
             }
@@ -140,15 +146,15 @@ namespace Training.BusinessLogic.Einstellungen
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
-                var result = await UOW.UOW.uow.Query<einstellungen>().Where(x => x.Setting == key).FirstOrDefaultAsync();
+                var result = await UOW.Uow._uow.Query<einstellungen>().Where(x => x.Setting == key).FirstOrDefaultAsync();
                 if (result == null)
                 {
-                    einstellungen e = new einstellungen(UOW.UOW.uow);
+                    einstellungen e = new einstellungen(UOW.Uow._uow);
                     e.Setting = key;
                     e.Value = value;
                     e.Spielstaette = location;
@@ -156,6 +162,7 @@ namespace Training.BusinessLogic.Einstellungen
                     e.Description = description;
                     e.Type = type;
                     e.ReadOnly = false;
+                    e.Guid = Guid.NewGuid().ToString();
                 }
                 else
                 {
@@ -164,7 +171,7 @@ namespace Training.BusinessLogic.Einstellungen
                     result.Description = description;
                     result.Type = type;
                 }
-                await UOW.UOW.SaveAsync();
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {
@@ -176,17 +183,17 @@ namespace Training.BusinessLogic.Einstellungen
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 foreach (var item in settings)
                 {
-                    var result = await UOW.UOW.uow.Query<einstellungen>().Where(x => x.Setting == item.Setting).FirstOrDefaultAsync();
+                    var result = await UOW.Uow._uow.Query<einstellungen>().Where(x => x.Setting == item.Setting).FirstOrDefaultAsync();
                     if (result == null)
                     {
-                        einstellungen e = new einstellungen(UOW.UOW.uow);
+                        einstellungen e = new einstellungen(UOW.Uow._uow);
                         e.Setting = item.Setting;
                         e.Value = item.Value;
                         e.Spielstaette = item.Spielstaette;
@@ -194,6 +201,7 @@ namespace Training.BusinessLogic.Einstellungen
                         e.Description = item.Description;
                         e.Type = item.Type;
                         e.ReadOnly = false;
+                        e.Guid = Guid.NewGuid().ToString();
                     }
                     else
                     {
@@ -203,10 +211,7 @@ namespace Training.BusinessLogic.Einstellungen
                         result.Type = item.Type;
                     }
                 }
-
-
-                await UOW.UOW.SaveAsync();
-
+                await UOW.Uow.SaveAsync();
             }
             catch (Exception)
             {

@@ -25,14 +25,14 @@ namespace Training.BusinessLogic.Engelmann
         {
             try
             {
-                if (UOW.UOW.uow == null || !UOW.UOW.uow.IsConnected)
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
                 {
-                    UOW.UOW.Connect();
+                    UOW.Uow.Connect();
                 }
 
                 List<CEVVorschreibung> vorschreibungen = new List<CEVVorschreibung>();
 
-                var result = await UOW.UOW.uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "GET_CEV_MB", saison);
+                var result = await UOW.Uow._uow.ExecuteSprocAsync(new System.Threading.CancellationToken(), "GET_CEV_MB", saison);
                 var returnvorschreibung = result.ResultSet.FirstOrDefault();
 
                 if (returnvorschreibung != null)

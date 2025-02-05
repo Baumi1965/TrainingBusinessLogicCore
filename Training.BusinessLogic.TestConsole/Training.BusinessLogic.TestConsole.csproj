@@ -10,7 +10,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Training.BusinessLogic.Einstellungen\Training.BusinessLogic.Einstellungen.csproj" />
     <ProjectReference Include="..\Training.BusinessLogic.Gebucht\Training.BusinessLogic.Gebucht.csproj" />
+    <ProjectReference Include="..\Training.BusinessLogic.Kassa.Spielstaette\Training.BusinessLogic.Kassa.Spielstaette.csproj" />
     <ProjectReference Include="..\Training.BusinessLogic.Spielstaetten\Training.BusinessLogic.Spielstaetten.csproj" />
+    <ProjectReference Include="..\Training.BusinessLogic.Sync\Training.BusinessLogic.Sync.csproj" />
     <ProjectReference Include="..\Training.BusinessLogic.UOW\Training.BusinessLogic.UOW.csproj" />
     <ProjectReference Include="..\Training.BusinessLogic.Zeiterfassung\Training.BusinessLogic.Zeiterfassung.csproj" />
   </ItemGroup>
