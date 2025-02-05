@@ -13,8 +13,10 @@
       <ProjectReference Include="..\Training.BusinessLogic.Kunden\Training.BusinessLogic.Kunden.csproj" />
       <ProjectReference Include="..\Training.BusinessLogic.Lokal.Spielstaetten\Training.BusinessLogic.Lokal.Spielstaetten.csproj" />
       <ProjectReference Include="..\Training.BusinessLogic.ParkplatzERS\Training.BusinessLogic.ParkplatzERS.csproj" />
+      <ProjectReference Include="..\Training.BusinessLogic.Preis\Training.BusinessLogic.Preis.csproj" />
       <ProjectReference Include="..\Training.BusinessLogic.Spielstaetten\Training.BusinessLogic.Spielstaetten.csproj" />
       <ProjectReference Include="..\Training.BusinessLogic.UOW\Training.BusinessLogic.UOW.csproj" />
+      <ProjectReference Include="..\Training.BusinessLogic.ZeitenKalender\Training.BusinessLogic.ZeitenKalender.csproj" />
     </ItemGroup>
 
 </Project>

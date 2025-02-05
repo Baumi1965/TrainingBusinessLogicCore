@@ -1,15 +1,18 @@
+using System;
+using System.Threading.Tasks;
 using DevExpress.Xpo;
 using Training.BusinessLogic.UOW.Models;
+using System.Linq;
 
-namespace Training.BusinessLogic.ZeitenKalender;
-
-public class ZeitenKalenderSyncDate
+namespace Training.BusinessLogic.ZeitenKalender
 {
-    public int Id { get; set; }
-    public int SpielstaetteId { get; set; }
-    public DateTime SyncTimestamp { get; set; }
+    public class ZeitenKalenderSyncDate
+    {
+        public int Id { get; set; }
+        public int SpielstaetteId { get; set; }
+        public DateTime SyncTimestamp { get; set; }
     
-     public static async Task<DateTime> GetAsync(int spielstaetteId)
+        public static async Task<DateTime> GetAsync(int spielstaetteId)
         {   
             try
             {
@@ -34,5 +37,5 @@ public class ZeitenKalenderSyncDate
             }
         }
 
-    
+    }    
 }

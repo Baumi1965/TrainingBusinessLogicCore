@@ -4,10 +4,12 @@ using Training.BusinessLogic.Artikel;
 using Training.BusinessLogic.Belegungsart;
 using Training.BusinessLogic.Kunden;
 using Training.BusinessLogic.ParkplatzERS;
+using Training.BusinessLogic.Preis;
 using Training.BusinessLogic.Shared;
 using Training.BusinessLogic.Spielstaetten;
 using Training.BusinessLogic.UOW;
 using Training.BusinessLogic.UOW.Models;
+using Training.BusinessLogic.ZeitenKalender;
 
 namespace Training.BusinessLogic.Sync;
 
@@ -78,6 +80,26 @@ public class Sync
                 {
                     syncResult = await KundenLokal.DoSyncAsync(aktion, daten);
                 }
+                else if (tableName.Equals("preise", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    syncResult = await PreisLokal.DoSyncAsync(aktion, daten);
+                }
+                else if (tableName.Equals("eklbegleitkarte", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    syncResult = await EKLBegleitkarteLokal.DoSyncAsync(aktion, daten);
+                }                
+                else if (tableName.Equals("eklbegleitkarteeintritt", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    syncResult = await EKLBegleitkarteEintrittLokal.DoSyncAsync(aktion, daten);
+                }                 
+                else if (tableName.Equals("eklbegleitkarteparken", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    syncResult = await EKLBegleitkarteParkenLokal.DoSyncAsync(aktion, daten);
+                }  
+                else if (tableName.Equals("zeitenkalender", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    syncResult = await ZeitenKalenderLokal.DoSyncAsync(aktion, daten);
+                }                  
                 
                 if (syncResult.Error)
                 {
@@ -101,5 +123,4 @@ public class Sync
             throw;
         }
     }
-    
 }
