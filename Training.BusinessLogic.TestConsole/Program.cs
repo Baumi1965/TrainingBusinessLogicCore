@@ -43,6 +43,14 @@ namespace Training.BusinessLogic.TestConsole
 
                         var stopwatch = new Stopwatch();
 
+                        stopwatch.Start();
+                        Console.WriteLine($"Sync RunForFirstImport started {stopwatch.ElapsedMilliseconds} ms");
+                        await Sync.Sync.RunForFirstImportAsync(2);
+                        Console.WriteLine($"Sync RunForSecondImport finished {stopwatch.ElapsedMilliseconds} ms");
+                        Console.WriteLine();
+                        stopwatch.Stop();
+                        stopwatch.Reset();
+                        
                         while (!cts.Token.IsCancellationRequested)
                         {
                             stopwatch.Start();

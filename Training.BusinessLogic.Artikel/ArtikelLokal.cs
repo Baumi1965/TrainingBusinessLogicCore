@@ -4,6 +4,7 @@ using System.Dynamic;
 using System.Threading.Tasks;
 using DevExpress.Xpo;
 using Newtonsoft.Json;
+using Training.BusinessLogic.Artikel.ModelsLokal;
 using Training.BusinessLogic.Shared;
 using Training.BusinessLogic.UOW;
 
@@ -11,6 +12,25 @@ namespace Training.BusinessLogic.Artikel
 {
     public class ArtikelLokal
     {
+        public static async Task<int> CountAsync()
+        {
+            try
+            {
+                if (Uow._uowLokal == null || !Uow._uowLokal.IsConnected)
+                {
+                    Uow.ConnectLokal();
+                }
+
+                return await Uow._uowLokal.Query<artikellokal>().CountAsync();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
+        }
+        
         public static async Task<SyncResult> DoSyncAsync(string aktion, string daten)
         {
             var result = new SyncResult();
@@ -59,7 +79,11 @@ namespace Training.BusinessLogic.Artikel
                             }
                             
                             var targetType = Nullable.GetUnderlyingType(propInfo.PropertyType) ?? propInfo.PropertyType;
-                            var convertedValue = Convert.ChangeType(property.Value, targetType);
+                            object convertedValue = null;
+                            if (property.Value != null)
+                            {
+                                convertedValue = Convert.ChangeType(property.Value, targetType);
+                            }
                             propInfo.SetValue(entityInstance, convertedValue);
                         }
                         await Uow._uowLokal.SaveAsync(entityInstance);
@@ -92,7 +116,11 @@ namespace Training.BusinessLogic.Artikel
                             }
                             
                             var targetType = Nullable.GetUnderlyingType(propInfo.PropertyType) ?? propInfo.PropertyType;
-                            var convertedValue = Convert.ChangeType(property.Value, targetType);
+                            object convertedValue = null;
+                            if (property.Value != null)
+                            {
+                                convertedValue = Convert.ChangeType(property.Value, targetType);
+                            }
                             propInfo.SetValue(entityInstance, convertedValue);
                         }
                         await Uow._uowLokal.SaveAsync(entityInstance);

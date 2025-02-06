@@ -408,5 +408,18 @@ namespace Training.BusinessLogic.UOW.Models
             get { return fEiszeitenESHERS; }
             set { SetPropertyValue<bool?>(nameof(EiszeitenESHERS), ref fEiszeitenESHERS, value); }
         }
+        
+        string fGuid;
+        public string Guid
+        {
+            get
+            {
+                return fGuid;
+            }
+            set
+            {
+                SetPropertyValue<string>(nameof(Guid), ref fGuid, value);
+            }
+        }
     }
 }

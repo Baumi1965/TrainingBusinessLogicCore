@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Threading.Tasks;
+using DevExpress.Xpo;
 using Newtonsoft.Json;
+using Training.BusinessLogic.Kunden.ModelsLokal;
 using Training.BusinessLogic.Shared;
 using Training.BusinessLogic.UOW;
 
@@ -10,6 +12,25 @@ namespace Training.BusinessLogic.Kunden
 {
     public class EKLBegleitkarteLokal
     {
+        public static async Task<int> CountAsync()
+        {
+            try
+            {
+                if (Uow._uowLokal == null || !Uow._uowLokal.IsConnected)
+                {
+                    Uow.ConnectLokal();
+                }
+
+                return await Uow._uowLokal.Query<eklbegleitkartelokal>().CountAsync();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
+        }
+
         public static async Task<SyncResult> DoSyncAsync(string aktion, string daten)
         {
             var result = new SyncResult();

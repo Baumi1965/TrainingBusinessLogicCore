@@ -4,6 +4,7 @@ using System.Dynamic;
 using System.Threading.Tasks;
 using DevExpress.Xpo;
 using Newtonsoft.Json;
+using Training.BusinessLogic.Einstellungen.ModelsLokal;
 using Training.BusinessLogic.Shared;
 using Training.BusinessLogic.UOW;
 
@@ -20,7 +21,25 @@ namespace Training.BusinessLogic.Einstellungen
         public string Type { get; set; }
         public bool ReadOnly { get; set; }
         public Guid Guid { get; set; }
-        
+
+        public static async Task<int> CountAsync()
+        {
+            try
+            {
+                if (Uow._uowLokal == null || !Uow._uowLokal.IsConnected)
+                {
+                    Uow.ConnectLokal();
+                }
+
+                return await Uow._uowLokal.Query<einstellungenlokal>().CountAsync();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
+        }
         
         public static async Task<SyncResult> DoSyncAsync(string aktion, string daten)
         {
@@ -66,10 +85,19 @@ namespace Training.BusinessLogic.Einstellungen
                             }
 
                             var propInfo = entityType.GetProperty(property.Key);
-                            if (propInfo != null)
+                            if (propInfo == null)
                             {
-                                propInfo.SetValue(entityInstance, Convert.ChangeType(property.Value, propInfo.PropertyType));
+                                continue;
                             }
+                            
+                            var targetType = Nullable.GetUnderlyingType(propInfo.PropertyType) ?? propInfo.PropertyType;
+                            object convertedValue = null;
+                            if (property.Value != null)
+                            {
+                                convertedValue = Convert.ChangeType(property.Value, targetType);
+                            }
+                            propInfo.SetValue(entityInstance, convertedValue);
+
                         }
                         await Uow._uowLokal.SaveAsync(entityInstance);
                         break;
@@ -95,10 +123,18 @@ namespace Training.BusinessLogic.Einstellungen
                             }
                         
                             var propInfo = entityType.GetProperty(property.Key);
-                            if (propInfo != null)
+                            if (propInfo == null)
                             {
-                                propInfo.SetValue(entityInstance, Convert.ChangeType(property.Value, propInfo.PropertyType));
+                                continue;
                             }
+                            
+                            var targetType = Nullable.GetUnderlyingType(propInfo.PropertyType) ?? propInfo.PropertyType;
+                            object convertedValue = null;
+                            if (property.Value != null)
+                            {
+                                convertedValue = Convert.ChangeType(property.Value, targetType);
+                            }
+                            propInfo.SetValue(entityInstance, convertedValue);
                         }
                         await Uow._uowLokal.SaveAsync(entityInstance);
                         break;

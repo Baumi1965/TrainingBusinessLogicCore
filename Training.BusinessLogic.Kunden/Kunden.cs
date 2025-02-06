@@ -68,8 +68,9 @@ namespace Training.BusinessLogic.Kunden
         public DateTime? DatumMahnungsmail { get; set; }
         public string TrainerLizenz { get; set; }
         public bool? EiszeitenESHERS { get; set; }
+        public Guid Guid { get; set; }
 
-        public static async Task<List<Kunden>> Get()
+        public static async Task<List<Kunden>> GetAsync()
         {
             try
             {
@@ -142,6 +143,7 @@ namespace Training.BusinessLogic.Kunden
                     k.VName = item.VName;
                     k.Wert = item.Wert;
                     k.WertAbend = item.WertAbend;
+                    k.Guid = new Guid(item.Guid);
                     LstKunde.Add(k);
                 }
 
@@ -153,7 +155,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task<List<Kunden>> GetWithKaestchen()
+        public static async Task<List<Kunden>> GetWithKaestchenAsync()
         {
             try
             {
@@ -226,6 +228,7 @@ namespace Training.BusinessLogic.Kunden
                     k.VName = item.VName;
                     k.Wert = item.Wert;
                     k.WertAbend = item.WertAbend;
+                    k.Guid = new Guid(item.Guid);
                     LstKunde.Add(k);
                 }
 
@@ -237,7 +240,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task UpdateGuthaben(string kdnr)
+        public static async Task UpdateGuthabenAsync(string kdnr)
         {
             try
             {
@@ -255,7 +258,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task UpdateGuthaben(List<Kunden> kunden)
+        public static async Task UpdateGuthabenAsync(List<Kunden> kunden)
         {
             try
             {
@@ -276,7 +279,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task<List<Kunden>> GetForVerband(string info1, string info2, string info3, string info4, string info5, string info6, string info7, string info8, string info9, string info10)
+        public static async Task<List<Kunden>> GetForVerbandAsync(string info1, string info2, string info3, string info4, string info5, string info6, string info7, string info8, string info9, string info10)
         {
             try
             {
@@ -370,6 +373,7 @@ namespace Training.BusinessLogic.Kunden
                     k.VName = item.VName;
                     k.Wert = item.Wert;
                     k.WertAbend = item.WertAbend;
+                    k.Guid = new Guid(item.Guid);
                     LstKunde.Add(k);
                 }
 
@@ -381,7 +385,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task<int> Count()
+        public static async Task<int> CountAsync()
         {
             try
             {
@@ -399,7 +403,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task<int> CountKaestchen()
+        public static async Task<int> CountKaestchenAsync()
         {
             try
             {
@@ -417,7 +421,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task<short> MaxKdNr()
+        public static async Task<short> MaxKdNrAsync()
         {
             try
             {
@@ -438,7 +442,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task<Kunden> GetById(int id)
+        public static async Task<Kunden> GetByIdAsync(int id)
         {
             try
             {
@@ -509,6 +513,7 @@ namespace Training.BusinessLogic.Kunden
                 k.VName = item.VName;
                 k.Wert = item.Wert;
                 k.WertAbend = item.WertAbend;
+                k.Guid = new Guid(item.Guid);
 
                 return k;
             }
@@ -518,7 +523,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task<Kunden> GetByKdNr(string kdnr)
+        public static async Task<Kunden> GetByKdNrAsync(string kdnr)
         {
             try
             {
@@ -590,6 +595,7 @@ namespace Training.BusinessLogic.Kunden
                 k.VName = item.VName;
                 k.Wert = item.Wert;
                 k.WertAbend = item.WertAbend;
+                k.Guid = new Guid(item.Guid);
 
                 return k;
             }
@@ -599,7 +605,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task<Kunden> GetForBank(string kdnr, string zg, string zr, string zz, string ag, string iban)
+        public static async Task<Kunden> GetForBankAsync(string kdnr, string zg, string zr, string zz, string ag, string iban)
         {
             try
             {
@@ -690,6 +696,7 @@ namespace Training.BusinessLogic.Kunden
                 k.VName = item.VName;
                 k.Wert = item.Wert;
                 k.WertAbend = item.WertAbend;
+                k.Guid = new Guid(item.Guid);
 
                 return k;
             }
@@ -699,7 +706,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task<List<Kunden>> GetParkplatzEinfahrtAktiv()
+        public static async Task<List<Kunden>> GetParkplatzEinfahrtAktivAsync()
         {
             try
             {
@@ -772,6 +779,7 @@ namespace Training.BusinessLogic.Kunden
                     k.VName = item.VName;
                     k.Wert = item.Wert;
                     k.WertAbend = item.WertAbend;
+                    k.Guid = new Guid(item.Guid);
                     lstKunden.Add(k);
                 }
 
@@ -783,7 +791,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task<List<Kunden>> GetWithNegativeBalance(bool onlyactive)
+        public static async Task<List<Kunden>> GetWithNegativeBalanceAsync(bool onlyactive)
         {
             try
             {
@@ -866,6 +874,7 @@ namespace Training.BusinessLogic.Kunden
                     k.VName = item.VName;
                     k.Wert = item.Wert;
                     k.WertAbend = item.WertAbend;
+                    k.Guid = new Guid(item.Guid);
                     lstKunden.Add(k);
                 }
 
@@ -877,7 +886,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task<List<Kunden>> GetForMahnung(int wert)
+        public static async Task<List<Kunden>> GetForMahnungAsync(int wert)
         {
             try
             {
@@ -952,6 +961,7 @@ namespace Training.BusinessLogic.Kunden
                     k.VName = item.VName;
                     k.Wert = item.Wert;
                     k.WertAbend = item.WertAbend;
+                    k.Guid = new Guid(item.Guid);
                     lstKunden.Add(k);
                 }
 
@@ -963,7 +973,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task<Kunden> UpdateGuthaben(string kdnr, decimal guthaben)
+        public static async Task<Kunden> UpdateGuthabenAsync(string kdnr, decimal guthaben)
         {
             try
             {
@@ -979,7 +989,7 @@ namespace Training.BusinessLogic.Kunden
                     await UOW.Uow.SaveAsync();
                 }
 
-                return await Kunden.GetById(ppe.ID);
+                return await Kunden.GetByIdAsync(ppe.ID);
             }
             catch (Exception)
             {
@@ -987,7 +997,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task UpdateFromBankImport(int id, string begruendung, bool sperre, decimal wert, decimal preisAbend, decimal preis, string iban)
+        public static async Task UpdateFromBankImportAsync(int id, string begruendung, bool sperre, decimal wert, decimal preisAbend, decimal preis, string iban)
         {
             try
             {
@@ -1021,7 +1031,7 @@ namespace Training.BusinessLogic.Kunden
         }
 
 
-        public static async Task UpdateMahnungMail(string kdnr)
+        public static async Task UpdateMahnungMailAsync(string kdnr)
         {
             try
             {
@@ -1044,7 +1054,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task UpdatePreise(decimal wert, decimal wertAbend, int preiseId)
+        public static async Task UpdatePreiseAsync(decimal wert, decimal wertAbend, int preiseId)
         {
             try
             {
@@ -1067,7 +1077,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task UpdateAutosperre(string kdnr, bool sperre, string begruendung, decimal? wert = null, decimal? wertAbend = null)
+        public static async Task UpdateAutosperreAsync(string kdnr, bool sperre, string begruendung, decimal? wert = null, decimal? wertAbend = null)
         {
             try
             {
@@ -1092,7 +1102,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task Add(string kdnr, string vname, string nname, string adresse, string plz, string ort, string tel, string email, string verband, string eklnr,
+        public static async Task AddAsync(string kdnr, string vname, string nname, string adresse, string plz, string ort, string tel, string email, string verband, string eklnr,
             string geburtsdatum, string typ, decimal? wert, bool block, bool sperre, string begruendung, string info1, string info2, string info3, string info4,
             string info5, string kuerklasse, bool freigabeVerein, DateTime? datumFreigabe, string freigabeInfo1, string freigabeInfo2, string freigabeInfo3,
             bool aktiv, string passwort, string iban, string trainer, int? preiseId, string lizenzNr, bool sperreVerein, string verbandNation, string verbandLizenz,
@@ -1164,7 +1174,7 @@ namespace Training.BusinessLogic.Kunden
                 kunde.TrainerLizenz = trainerlizenz;
                 kunde.EiszeitenESHERS = eiszeitenESHERS;
                 kunde.Guthaben = 0;
-
+                kunde.Guid = System.Guid.NewGuid().ToString();
                 if (saveImmediatly)
                 {
                     await UOW.Uow.SaveAsync();
@@ -1177,7 +1187,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task Add(string kdnr, string vname, string nname, string adresse, string plz, string ort, string tel, string email, string geburtsdatum, bool saveImmediatly)
+        public static async Task AddAsync(string kdnr, string vname, string nname, string adresse, string plz, string ort, string tel, string email, string geburtsdatum, bool saveImmediatly)
         {
             try
             {
@@ -1196,7 +1206,7 @@ namespace Training.BusinessLogic.Kunden
                 kunde.Tel = tel;
                 kunde.EMail = email;
                 kunde.Geburtsdatum = geburtsdatum;
-
+                kunde.Guid = Guid.NewGuid().ToString();
                 if (saveImmediatly)
                 {
                     await UOW.Uow.SaveAsync();
@@ -1209,7 +1219,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task Update(int id, string kdnr, string vname, string nname, string adresse, string plz, string ort, string tel, string email, string verband, string eklnr,
+        public static async Task UpdateAsync(int id, string kdnr, string vname, string nname, string adresse, string plz, string ort, string tel, string email, string verband, string eklnr,
             string geburtsdatum, string typ, decimal? wert, bool block, bool sperre, string begruendung, string info1, string info2, string info3, string info4,
             string info5, string kuerklasse, bool freigabeVerein, DateTime? datumFreigabe, string freigabeInfo1, string freigabeInfo2, string freigabeInfo3,
             bool aktiv, string passwort, string iban, string trainer, int? preiseId, string lizenzNr, bool sperreVerein, string verbandNation, string verbandLizenz,
@@ -1295,7 +1305,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task Update(int id, Kunden kundeeshers, bool saveImmediatly)
+        public static async Task UpdateAsync(int id, Kunden kundeeshers, bool saveImmediatly)
         {
             try
             {
@@ -1375,7 +1385,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task Update(int id, decimal guthaben, bool block, bool saveImmediatly)
+        public static async Task UpdateAsync(int id, decimal guthaben, bool block, bool saveImmediatly)
         {
             try
             {
@@ -1402,7 +1412,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task Update(int id, string begruendung, bool sperre, bool saveImmediatly)
+        public static async Task UpdateAsync(int id, string begruendung, bool sperre, bool saveImmediatly)
         {
             try
             {
@@ -1429,7 +1439,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task Delete(int id, bool saveImmediatly)
+        public static async Task DeleteAsync(int id, bool saveImmediatly)
         {
             try
             {
@@ -1455,7 +1465,7 @@ namespace Training.BusinessLogic.Kunden
             }
         }
 
-        public static async Task<Kunden> GetByName(string vorname, string nachname)
+        public static async Task<Kunden> GetByNameAsync(string vorname, string nachname)
         {
             try
             {
@@ -1527,6 +1537,7 @@ namespace Training.BusinessLogic.Kunden
                 k.VName = item.VName;
                 k.Wert = item.Wert;
                 k.WertAbend = item.WertAbend;
+                k.Guid = new Guid(item.Guid);
 
                 return k;
             }

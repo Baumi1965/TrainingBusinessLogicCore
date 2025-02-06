@@ -27,8 +27,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Training.BusinessLogic.Kass
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Training.BusinessLogic.Lokal.ZutrittErlaubt", "Training.BusinessLogic.Lokal.ZutrittErlaubt\Training.BusinessLogic.Lokal.ZutrittErlaubt.csproj", "{12C2DC74-ADD9-45E0-8270-12AE52D6B9B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Training.BusinessLogic.Lokal.Spielstaetten", "Training.BusinessLogic.Lokal.Spielstaetten\Training.BusinessLogic.Lokal.Spielstaetten.csproj", "{A2734996-D139-4D61-8802-A64724798014}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Training.BusinessLogic.Sync", "Training.BusinessLogic.Sync\Training.BusinessLogic.Sync.csproj", "{B5E90E1A-7141-440E-91E8-0B1BBCBB88B5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Training.BusinessLogic.Shared", "Training.BusinessLogic.Shared\Training.BusinessLogic.Shared.csproj", "{ED1B72B5-C9A4-4082-B466-704DC34CB827}"
@@ -95,10 +93,6 @@ Global
 		{12C2DC74-ADD9-45E0-8270-12AE52D6B9B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12C2DC74-ADD9-45E0-8270-12AE52D6B9B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12C2DC74-ADD9-45E0-8270-12AE52D6B9B3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A2734996-D139-4D61-8802-A64724798014}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A2734996-D139-4D61-8802-A64724798014}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A2734996-D139-4D61-8802-A64724798014}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A2734996-D139-4D61-8802-A64724798014}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B5E90E1A-7141-440E-91E8-0B1BBCBB88B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B5E90E1A-7141-440E-91E8-0B1BBCBB88B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5E90E1A-7141-440E-91E8-0B1BBCBB88B5}.Release|Any CPU.ActiveCfg = Release|Any CPU

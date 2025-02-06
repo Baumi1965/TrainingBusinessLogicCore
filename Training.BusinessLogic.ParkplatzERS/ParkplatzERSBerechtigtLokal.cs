@@ -58,7 +58,11 @@ namespace Training.BusinessLogic.ParkplatzERS
                             }
                             
                             var targetType = Nullable.GetUnderlyingType(propInfo.PropertyType) ?? propInfo.PropertyType;
-                            var convertedValue = Convert.ChangeType(property.Value, targetType);
+                            object convertedValue = null;
+                            if (property.Value != null)
+                            {
+                                convertedValue = Convert.ChangeType(property.Value, targetType);
+                            }
                             propInfo.SetValue(entityInstance, convertedValue);
                         }
                         await Uow._uowLokal.SaveAsync(entityInstance);
@@ -91,7 +95,11 @@ namespace Training.BusinessLogic.ParkplatzERS
                             }
                             
                             var targetType = Nullable.GetUnderlyingType(propInfo.PropertyType) ?? propInfo.PropertyType;
-                            var convertedValue = Convert.ChangeType(property.Value, targetType);
+                            object convertedValue = null;
+                            if (property.Value != null)
+                            {
+                                convertedValue = Convert.ChangeType(property.Value, targetType);
+                            }
                             propInfo.SetValue(entityInstance, convertedValue);
                         }
                         await Uow._uowLokal.SaveAsync(entityInstance);

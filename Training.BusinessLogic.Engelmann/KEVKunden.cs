@@ -352,7 +352,7 @@ namespace Training.BusinessLogic.Engelmann
                     bool KundeESHERS = false;
                     string KdNrESHERS = string.Empty;
 
-                    var kunde = await Kunden.Kunden.GetByName(vorname, nachname);
+                    var kunde = await Kunden.Kunden.GetByNameAsync(vorname, nachname);
                     if (kunde != null)
                     {
                         KundeESHERS = true;
