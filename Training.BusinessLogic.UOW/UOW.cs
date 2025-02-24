@@ -13,7 +13,6 @@ namespace Training.BusinessLogic.UOW
         public static string XpoTrainingConnectionString { get; set; }
         public static string XpoEngelmannConnectionString { get; set; }
         public static string XpoKassaConnectionString { get; set; }
-        
         public static string XpoLokalConnectionString { get; set; }
 
         public Uow()
@@ -24,6 +23,11 @@ namespace Training.BusinessLogic.UOW
         
         public static void Connect()
         {
+            if (_uow != null && _uow.IsConnected)
+            {
+                return;
+            }
+            
             SimpleDataLayer.SuppressReentrancyAndThreadSafetyCheck = true;
             _uow = new UnitOfWork();
             _uow.ConnectionString = XpoTrainingConnectionString;
@@ -63,6 +67,11 @@ namespace Training.BusinessLogic.UOW
         
         public static void ConnectKassa()
         {
+            if (_uowKassa != null && _uowKassa.IsConnected)
+            {
+                return;
+            }
+            
             SimpleDataLayer.SuppressReentrancyAndThreadSafetyCheck = true;
             _uowKassa = new UnitOfWork();
             _uowKassa.ConnectionString = XpoKassaConnectionString;
@@ -102,6 +111,11 @@ namespace Training.BusinessLogic.UOW
         
         public static void ConnectEngelmann()
         {
+            if (_uowEngelmann != null && _uowEngelmann.IsConnected)
+            {
+                return;
+            }
+            
             SimpleDataLayer.SuppressReentrancyAndThreadSafetyCheck = true;
             _uowEngelmann = new UnitOfWork();
             _uowEngelmann.ConnectionString = XpoEngelmannConnectionString;
@@ -141,6 +155,11 @@ namespace Training.BusinessLogic.UOW
         
         public static void ConnectLokal()
         {
+            if (_uowLokal != null && _uowLokal.IsConnected)
+            {
+                return;
+            }
+            
             SimpleDataLayer.SuppressReentrancyAndThreadSafetyCheck = true;
             _uowLokal = new UnitOfWork();
             _uowLokal.ConnectionString = XpoLokalConnectionString;

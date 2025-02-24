@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DevExpress.Xpo" Version="23.2.8" />
+    <PackageReference Include="DevExpress.Xpo" Version="24.2.3" />
     <PackageReference Include="MySqlConnector" Version="2.3.7" />
   </ItemGroup>
 

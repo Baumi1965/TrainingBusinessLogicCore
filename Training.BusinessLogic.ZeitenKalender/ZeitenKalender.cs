@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using DevExpress.Xpo;
 using Training.BusinessLogic.UOW.Models;
@@ -146,6 +147,70 @@ namespace Training.BusinessLogic.ZeitenKalender
             }
         }
 
+        public static async Task<ZeitenKalender> GetByDateLocationBelegungsartAsync(List<int> belegungsarten, DateTime startDate, int location, TimeSpan time, CancellationToken cancellationToken
+            = default)
+        {
+            try
+            {
+                if (UOW.Uow._uow == null || !UOW.Uow._uow.IsConnected)
+                {
+                    UOW.Uow.Connect();
+                }
+
+                var item = await UOW.Uow._uow.Query<zeitenkalender>()
+                    .Where(x => x.Status.HasValue && belegungsarten.Contains(x.Status.Value) &&
+                                x.SpielstaetteID == location && x.StartDatum.HasValue &&
+                                x.StartDatum.Value.Date == startDate.Date &&
+                                x.StartDatum.Value.TimeOfDay <= time && x.EndeDatum.HasValue &&
+                                x.EndeDatum.Value.TimeOfDay >= time)
+                    .OrderBy(x => x.StartDatum)
+                    .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
+                if (item == null)
+                {
+                    return null;
+                }
+
+                return new ZeitenKalender()
+                {
+                    ID = item.ID,
+                    Ansprechpartner = item.Ansprechpartner,
+                    Beschreibung = item.Beschreibung,
+                    Betreff = item.Betreff,
+                    Buchungssystem = item.Buchungssystem,
+                    EndeDatum = item.EndeDatum,
+                    ExtraEis = item.ExtraEis,
+                    Frequenz = item.Frequenz,
+                    Ganztaegig = item.Ganztaegig,
+                    Label = item.Label,
+                    Matchuhr = item.Matchuhr,
+                    NichtBespielbar = item.NichtBespielbar,
+                    RecurrenceInfo = item.RecurrenceInfo,
+                    ReminderInfo = item.ReminderInfo,
+                    Spielstaette = item.Spielstaette,
+                    SpielstaetteID = item.SpielstaetteID,
+                    StartDatum = item.StartDatum,
+                    Status = item.Status,
+                    Tel = item.Tel,
+                    Training = item.Training,
+                    TrainingID = item.TrainingID,
+                    Type = item.Type,
+                    Verband = item.Verband,
+                    Zusatztext = item.Zusatztext,
+                    TSChanged = item.TSChanged,
+                    UserChanged = item.UserChanged,
+                    Benutzer = item.Benutzer,
+                    AbgebuchterBetrag = item.AbgebuchterBetrag,
+                };
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        
+        
+        
         public static async Task<List<ZeitenKalender>> GetByDate(DateTime startdate, int spielstaette)
         {
             try
@@ -369,6 +434,8 @@ namespace Training.BusinessLogic.ZeitenKalender
             }
         }
 
+        
+        
         public static async Task<List<ZeitenKalenderView>> GetViewByDate(DateTime startdate, DateTime enddate, int? spielstaette = null)
         {
             try
