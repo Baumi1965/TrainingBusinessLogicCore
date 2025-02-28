@@ -12,7 +12,7 @@ namespace Training.BusinessLogic.Logging;
 public static class Logging
 {
     private static readonly int _logLevelMariaDb = GetLogLevelMariaDb();
-    
+    private static readonly string _logTableMariaDb = GetLogTableMariaDb();
     static Logging()
     {
         Serilog.Debugging.SelfLog.Enable(msg => Debug.WriteLine(msg));
@@ -62,7 +62,7 @@ public static class Logging
             .ReadFrom.Configuration(configuration)
             .WriteTo.Loupe()
             .WriteTo.MariaDB(
-                tableName:"logging_training_kassasync",
+                tableName: _logTableMariaDb,
                 restrictedToMinimumLevel: (LogEventLevel)_logLevelMariaDb,
                 autoCreateTable:true,
                 useBulkInsert:false,
@@ -132,7 +132,14 @@ public static class Logging
     public static int GetLogLevelMariaDb()
     {
         var settings = GetConfig();
-        var logLevel = Convert.ToInt32(settings["LocLevelMariaDb"]);
+        var logLevel = Convert.ToInt32(settings["LogLevelMariaDb"]);
         return logLevel;
+    }
+    
+    public static string GetLogTableMariaDb()
+    {
+        var settings = GetConfig();
+        var logTable = settings["LogTableMariaDb"];
+        return logTable;
     }
 }

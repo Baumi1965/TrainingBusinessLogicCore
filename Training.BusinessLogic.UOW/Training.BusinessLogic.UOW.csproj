@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="DevExpress.Xpo" Version="24.2.3" />
     <PackageReference Include="MySqlConnector" Version="2.3.7" />
+    <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
   </ItemGroup>
 
   <ItemGroup>

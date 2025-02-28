@@ -68,7 +68,6 @@ namespace Training.BusinessLogic.Kunden
                         // Set properties dynamically
                         foreach (var property in (IDictionary<string, object>)jsonObject)
                         {
-                            prop = property.Key;
                             if (property.Key == "ID")
                             {
                                 continue;
@@ -86,7 +85,8 @@ namespace Training.BusinessLogic.Kunden
                             {
                                 convertedValue = Convert.ChangeType(property.Value, targetType);
                             }
-                            propInfo.SetValue(entityInstance, convertedValue);
+                            propInfo.SetValue(entityInstance, convertedValue);                            
+
                         }
                         await Uow._uowLokal.SaveAsync(entityInstance);
                         break;

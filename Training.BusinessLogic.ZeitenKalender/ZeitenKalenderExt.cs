@@ -66,7 +66,7 @@ namespace Training.BusinessLogic.ZeitenKalender
         }
         
         public static async Task AddAsync(int zeitenkalenderId, int location, int anzahlFrequenzschein, int anzahlFrequenzscheinBegleitperson,
-            double wertFrequenzschein, int anzahlKassa, double wertKassa, DateTime ts)
+            double wertFrequenzschein, int anzahlKassa, double wertKassa, int anzahlEistanz, double wertEistanz, DateTime ts)
         {
             try
             {
@@ -74,6 +74,9 @@ namespace Training.BusinessLogic.ZeitenKalender
                 {
                     Uow.Connect();
                 }
+                
+                var anzahl = anzahlFrequenzschein + anzahlFrequenzscheinBegleitperson +  anzahlKassa + anzahlEistanz;
+                var wert = wertFrequenzschein + wertKassa + wertEistanz;
                 
                 var ext = new zeitenkalender_ext(Uow._uow)
                 {
@@ -84,6 +87,10 @@ namespace Training.BusinessLogic.ZeitenKalender
                     WertFrequenzschein = wertFrequenzschein,
                     AnzahlKassa = anzahlKassa,
                     WertKassa = wertKassa,
+                    AnzahlEistanz = anzahlEistanz,
+                    WertEistanz = wertEistanz,
+                    Anzahl = anzahl,
+                    Wert = wert,
                     TS = ts,
                     TS_Created = DateTime.Now,
                     TS_Modified = DateTime.Now,
@@ -100,7 +107,7 @@ namespace Training.BusinessLogic.ZeitenKalender
         }
         
         public static async Task UpdateAsync(int id, int anzahlFrequenzschein, int anzahlFrequenzscheinBegleitperson,
-            double wertFrequenzschein, int anzahlKassa, double wertKassa)
+            double wertFrequenzschein, int anzahlKassa, double wertKassa, int anzahlEistanz, double wertEistanz)
         {
             try
             {
@@ -108,6 +115,9 @@ namespace Training.BusinessLogic.ZeitenKalender
                 {
                     Uow.Connect();
                 }
+
+                var anzahl = anzahlFrequenzschein + anzahlFrequenzscheinBegleitperson +  anzahlKassa + anzahlEistanz;
+                var wert = wertFrequenzschein + wertKassa + wertEistanz;
                 
                 var ext = await Uow._uow.Query<zeitenkalender_ext>()
                     .Where(x => x.ID == id)
@@ -120,6 +130,10 @@ namespace Training.BusinessLogic.ZeitenKalender
                     ext.WertFrequenzschein += wertFrequenzschein;
                     ext.AnzahlKassa += anzahlKassa;
                     ext.WertKassa += wertKassa;
+                    ext.AnzahlEistanz += anzahlEistanz;
+                    ext.WertEistanz += wertEistanz;
+                    ext.Anzahl += anzahl;
+                    ext.Wert += wert;
                     ext.TS_Modified = DateTime.Now;
                     ext.User_Modified = "Training.KassaSync";
                 }
