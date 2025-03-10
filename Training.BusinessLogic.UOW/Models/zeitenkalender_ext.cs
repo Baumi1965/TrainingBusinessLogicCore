@@ -104,20 +104,6 @@ namespace Training.BusinessLogic.UOW.Models
             set { SetPropertyValue<string>(nameof(User_Modified), ref fUser_Modified, value); }
         }
         
-        int? fAnzahlEistanz;
-        public int? AnzahlEistanz
-        {
-            get { return fAnzahlEistanz; }
-            set { SetPropertyValue<int?>(nameof(AnzahlEistanz), ref fAnzahlEistanz, value); }
-        }
-
-        double? fWertEistanz;
-        public double? WertEistanz
-        {
-            get { return fWertEistanz; }
-            set { SetPropertyValue<double?>(nameof(WertEistanz), ref fWertEistanz, value); }
-        }
-
         int? fAnzahl;
         public int? Anzahl
         {
