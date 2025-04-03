@@ -161,8 +161,8 @@ namespace Training.BusinessLogic.ZeitenKalender
                     .Where(x => x.Status.HasValue && belegungsarten.Contains(x.Status.Value) &&
                                 x.SpielstaetteID == location && x.StartDatum.HasValue &&
                                 x.StartDatum.Value.Date == startDate.Date &&
-                                x.StartDatum.Value.TimeOfDay <= time && x.EndeDatum.HasValue &&
-                                x.EndeDatum.Value.TimeOfDay >= time)
+                                x.StartDatum.Value.AddHours(-1).TimeOfDay <= time && x.EndeDatum.HasValue &&
+                                x.EndeDatum.Value.AddHours(1).TimeOfDay >= time)
                     .OrderBy(x => x.StartDatum)
                     .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
