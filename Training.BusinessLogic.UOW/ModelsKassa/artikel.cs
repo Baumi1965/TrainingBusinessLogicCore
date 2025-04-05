@@ -38,8 +38,28 @@ namespace Training.BusinessLogic.UOW.ModelsKassa
             get { return fTrainingZeiten; } 
             set { SetPropertyValue<bool?>(nameof(TrainingZeiten), ref fTrainingZeiten, value); }
         }
+         
+        int? fAnzahlErw;
+        public int? AnzahlErw
+        {
+            get { return fAnzahlErw; }
+            set { SetPropertyValue<int?>(nameof(AnzahlErw), ref fAnzahlErw, value); }
+        }
 
-        
+        int? fAnzahlJugend;
+        public int? AnzahlJugend
+        {
+            get { return fAnzahlJugend; }
+            set { SetPropertyValue<int?>(nameof(AnzahlJugend), ref fAnzahlJugend, value); }
+        }
+
+        private int? fAnzahlKinder;
+        public int? AnzahlKinder
+        {
+            get { return fAnzahlKinder; }
+            set { SetPropertyValue<int?>(nameof(AnzahlKinder), ref fAnzahlKinder, value); }
+        }
+
 
     }
 }

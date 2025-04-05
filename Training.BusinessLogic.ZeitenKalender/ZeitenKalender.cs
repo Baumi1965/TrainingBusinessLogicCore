@@ -147,7 +147,7 @@ namespace Training.BusinessLogic.ZeitenKalender
             }
         }
 
-        public static async Task<ZeitenKalender> GetByDateLocationBelegungsartAsync(List<int> belegungsarten, DateTime startDate, int location, TimeSpan time, CancellationToken cancellationToken
+        public static async Task<ZeitenKalender> GetByDateLocationBelegungsartAsync(List<int> belegungsarten, DateTime startDate, List<int> location, TimeSpan time, CancellationToken cancellationToken
             = default)
         {
             try
@@ -159,10 +159,10 @@ namespace Training.BusinessLogic.ZeitenKalender
 
                 var item = await UOW.Uow._uow.Query<zeitenkalender>()
                     .Where(x => x.Status.HasValue && belegungsarten.Contains(x.Status.Value) &&
-                                x.SpielstaetteID == location && x.StartDatum.HasValue &&
+                                location.Contains(x.SpielstaetteID.Value) && x.StartDatum.HasValue &&
                                 x.StartDatum.Value.Date == startDate.Date &&
-                                x.StartDatum.Value.AddHours(-1).TimeOfDay <= time && x.EndeDatum.HasValue &&
-                                x.EndeDatum.Value.AddHours(1).TimeOfDay >= time)
+                                x.StartDatum.Value.AddHours(-2).TimeOfDay <= time && x.EndeDatum.HasValue &&
+                                x.EndeDatum.Value.AddHours(2).TimeOfDay >= time)
                     .OrderBy(x => x.StartDatum)
                     .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
