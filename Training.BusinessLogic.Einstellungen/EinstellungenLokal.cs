@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 using System.Threading.Tasks;
 using DevExpress.Xpo;
 using Newtonsoft.Json;
@@ -165,5 +166,43 @@ namespace Training.BusinessLogic.Einstellungen
                 return result;
             }
         }
+
+        public static async Task<EinstellungenLokal> GetByKeyAsync(string key)
+        {
+            try
+            {
+                if (UOW.Uow._uowLokal == null || !UOW.Uow._uowLokal.IsConnected)
+                {
+                    UOW.Uow.ConnectLokal();
+                }
+                
+                var ein = await Uow._uowLokal.Query<einstellungenlokal>().Where(x => x.Setting == key)
+                    .FirstOrDefaultAsync();
+
+                if (ein == null)
+                {
+                    return null;
+                }
+
+                var einstellung = new EinstellungenLokal
+                {
+                    ID = ein.ID,
+                    Setting = ein.Setting,
+                    Value = ein.Value,
+                    Spielstaette = ein.Spielstaette,
+                    Category = ein.Category,
+                    Description = ein.Description,
+                    Type = ein.Type,
+                    ReadOnly = Convert.ToBoolean(ein.ReadOnly),
+                    Guid = new Guid(ein.Guid),
+                };
+                return einstellung;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
+
 }

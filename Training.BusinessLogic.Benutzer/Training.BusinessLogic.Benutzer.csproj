@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Training.BusinessLogic.UOW\Training.BusinessLogic.UOW.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Training.BusinessLogic.Shared">
+        <HintPath>..\Training.BusinessLogic.Artikel\bin\Debug\net8.0\Training.BusinessLogic.Shared.dll</HintPath>
+      </Reference>
+      <Reference Include="XCrypt">
+        <HintPath>..\XCrypt.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    </ItemGroup>
+
+</Project>

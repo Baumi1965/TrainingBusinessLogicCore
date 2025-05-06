@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Training.BusinessLogic.Einstellungen\Training.BusinessLogic.Einstellungen.csproj" />
       <ProjectReference Include="..\Training.BusinessLogic.Shared\Training.BusinessLogic.Shared.csproj" />
       <ProjectReference Include="..\Training.BusinessLogic.UOW\Training.BusinessLogic.UOW.csproj" />
     </ItemGroup>

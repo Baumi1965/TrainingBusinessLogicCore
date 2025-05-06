@@ -1,15 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net48;net6.0;net8.0</TargetFrameworks>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblyVersion>1.0.0.1</AssemblyVersion>
+        <FileVersion>1.0.0.1</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Training.BusinessLogic.Artikel\Training.BusinessLogic.Artikel.csproj" />
       <ProjectReference Include="..\Training.BusinessLogic.Belegungsart\Training.BusinessLogic.Belegungsart.csproj" />
+      <ProjectReference Include="..\Training.BusinessLogic.Benutzer\Training.BusinessLogic.Benutzer.csproj" />
       <ProjectReference Include="..\Training.BusinessLogic.Einstellungen\Training.BusinessLogic.Einstellungen.csproj" />
       <ProjectReference Include="..\Training.BusinessLogic.Kunden\Training.BusinessLogic.Kunden.csproj" />
+      <ProjectReference Include="..\Training.BusinessLogic.Logging\Training.BusinessLogic.Logging.csproj" />
       <ProjectReference Include="..\Training.BusinessLogic.ParkplatzERS\Training.BusinessLogic.ParkplatzERS.csproj" />
       <ProjectReference Include="..\Training.BusinessLogic.Preis\Training.BusinessLogic.Preis.csproj" />
       <ProjectReference Include="..\Training.BusinessLogic.Spielstaetten\Training.BusinessLogic.Spielstaetten.csproj" />
